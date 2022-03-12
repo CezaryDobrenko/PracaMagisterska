@@ -1,0 +1,63 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:13
+    volumes:
+      - /home/postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=password
+    ports:
+      - 5432:5432
+    networks:
+      application_network:
+        ipv4_address: 172.16.11.13
+
+  web:
+    build: ./website
+    hostname: website
+    volumes:
+      - /home/files:/tmp/files
+      - ./website:/code
+    depends_on:
+      -  db
+    entrypoint: ./entrypoint.sh
+    ports:
+      - "8000:8000"
+    logging:
+      options:
+        max-size: "1g"
+        max-file: "3"
+    networks:
+      application_network:
+        ipv4_address: 172.16.11.12
+
+  nginx_proxy:
+    build: ./ngnix
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - db
+      - web
+    networks:
+      application_network:
+        ipv4_address: 172.16.11.11
+
+  cron-curl:
+    build:
+      context: ./cron
+    depends_on:
+      - nginx_proxy
+    links:
+      - nginx_proxy
+    networks:
+      application_network:
+        ipv4_address: 172.16.11.10
+
+networks:
+  application_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.16.11.0/24"
