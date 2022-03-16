@@ -3,7 +3,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from scrapper.settings import APP_LABEL
 
-from scrapper.models.base import GrapheneMixin, BaseModel
+from scrapper.models.utils.base import BaseModel
+from scrapper.models.utils.graphql_mixin import GrapheneMixin
 
 class User(AbstractUser, GrapheneMixin):
     class Meta:
@@ -12,8 +13,9 @@ class User(AbstractUser, GrapheneMixin):
 
     username = models.CharField(max_length=150)
     email = models.EmailField(_("email address"), unique=True, blank=True)
-    phone = models.TextField(null=True)
     is_active = models.BooleanField(default=False)
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["username"]
 
     def __str__(self) -> str:
         return f"{self.__class__.__name__}(id={self.id}, name={self.email})"

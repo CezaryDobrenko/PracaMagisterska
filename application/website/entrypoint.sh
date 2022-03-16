@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "Install dependencies"
+pip install -r requirements.txt
+
 echo "Apply database migrations"
 python manage.py makemigrations
 

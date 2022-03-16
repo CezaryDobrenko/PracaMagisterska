@@ -18,10 +18,10 @@ from django.contrib import admin
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
 from graphene_file_upload.django import FileUploadGraphQLView
-from scrapper.views import test
+from scrapper.views import scheduler
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("graphql/", csrf_exempt(FileUploadGraphQLView.as_view(graphiql=True))),
-    path("test/", test, name="test"),
+    path("scheduler/<interval>", scheduler, name="scheduler"),
 ]
