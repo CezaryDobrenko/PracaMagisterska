@@ -4,19 +4,17 @@ from scrapper.settings import APP_LABEL
 
 from scrapper.models.utils.base import BaseModel
 from scrapper.models.user import User
-from scrapper.models.utils.intervals import Interval
+from scrapper.models.utils.levels import Level
 
-class Folder(BaseModel):
+class AccountType(BaseModel):
     class Meta:
         app_label = APP_LABEL
         ordering = ("pk",)
 
     name = models.CharField(max_length=200)
-    is_ready = models.BooleanField(default=False)
     scraping_interval = models.CharField(
-        max_length=20, choices=Interval.Options.choices, default=Interval.Options.HOUR1
+        max_length=20, choices=Level.Options.choices, default=Level.Options.FREE
     )
-    last_scraping = models.DateTimeField(default=None, null=True)
     user_id = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True)
 
     def __str__(self) -> str:

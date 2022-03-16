@@ -22,7 +22,7 @@ class User(AbstractUser, GrapheneMixin):
 
     __repr__ = __str__
 
-
+# This model is used for testing scheduler
 class Test(BaseModel):
     class Meta:
         app_label = APP_LABEL
@@ -32,6 +32,6 @@ class Test(BaseModel):
     counter = models.IntegerField(default=0)
 
     def __str__(self) -> str:
-        return f"{self.__class__.__name__}(id={self.id}, name={self.name}, counter={self.counter})"
+        return f"{self.__class__.__name__}(id={self.id}, name={self.name})"
 
     __repr__ = __str__
