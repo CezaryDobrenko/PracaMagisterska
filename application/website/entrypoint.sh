@@ -5,9 +5,10 @@ pip install -r requirements.txt
 
 echo "Apply database migrations"
 python manage.py makemigrations
-
-echo "Apply database migrations"
 python manage.py migrate
+
+echo "Load mocked data to database"
+python manage.py loaddata mock_data.yaml
 
 echo "Starting server"
 python manage.py runserver 0.0.0.0:8000

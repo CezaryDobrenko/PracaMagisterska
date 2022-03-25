@@ -52,7 +52,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
 ]
 
 ROOT_URLCONF = "scrapper.urls"
@@ -120,7 +119,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+MEDIA_ROOT = "/tmp/files/"
 
 GRAPHENE = {
     "SCHEMA": "scrapper.graphql.schema",
@@ -140,7 +141,11 @@ AUTH_USER_MODEL = "scrapper.User"
 
 DEFAULT_MODEL_SIZES_NUMBER = 7
 
-MEDIA_ROOT = "/tmp/files/"
+#LOGIN_URL = "login"
+#LOGOUT_URL = "logout"
+LOGIN_REDIRECT_URL = "dashboard"
+LOGOUT_REDIRECT_URL = "dashboard"
+
 
 LOGGING = {
     "version": 1,

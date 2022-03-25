@@ -14,13 +14,48 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 from django.views.decorators.csrf import csrf_exempt
 from graphene_file_upload.django import FileUploadGraphQLView
-from scrapper.views import scheduler
+from scheduler.views import scheduler
+from scrapper.views.basic_views import (
+    DashboardView,
+    AboutView,
+    MissionView,
+    AuthorView,
+    ContactView,
+    ProcessView,
+    RegisterView
+)
+from scrapper.views.login import (
+    LoginView,
+    StatisticView,
+    PrivateDashboardView
+)
+
+from scrapper.views.folder.folder_views import (
+    FoldersList,
+    FoldersDelete,
+)
+
 
 urlpatterns = [
+    path("", DashboardView.as_view(), name="dashboard"),
+    path("dashboard/", PrivateDashboardView.as_view(), name="private_dashboard"),
+    path("accounts/", include("django.contrib.auth.urls")),
+    path("about/", AboutView.as_view(), name="about"),
+    path("mission/", MissionView.as_view(), name="mission"),
+    path("author/", AuthorView.as_view(), name="author"),
+    path("contact/", ContactView.as_view(), name="contact"),
+    path("process/", ProcessView.as_view(), name="process"),
+    path("login/", LoginView.as_view(), name="login"),
+    path("register/", RegisterView.as_view(), name="register"),
+    path("statistics/", StatisticView.as_view(), name="statistics"),
+    path("folders/", FoldersList.as_view(), name="folders"),
+    path("folders/delete/<int:pk>/", FoldersDelete.as_view(), name="folders-delete",),
     path("admin/", admin.site.urls),
     path("graphql/", csrf_exempt(FileUploadGraphQLView.as_view(graphiql=True))),
     path("scheduler/<interval>", scheduler, name="scheduler"),

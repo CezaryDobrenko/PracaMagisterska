@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero is-fullheight">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <div class="box has-background-link has-text-white py-6">
+                {% if form.errors %}
+                    <p>Your username and password didn't match. Please try again.</p>
+                {% endif %}
+                {% if next %}
+                    {% if user.is_authenticated %}
+                        <p>Your account doesn't have access to this page. To proceed, please login with an account that has access.</p>
+                    {% endif %}
+                {% endif %}
+                <form method="post" action="" class="mt-6">
+                    {% csrf_token %}
+                    <div class="field">
+                        <label class="label has-text-white" for="{{ form.username.auto_id }}">{{ form.username.label }}</label>
+                        <div class="control">
+                            {{ form.username }}
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label has-text-white" for="{{ form.password.auto_id }}">{{ form.password.label }}</label>
+                        <div class="control">
+                            {{ form.password }}
+                        </div>
+                    </div>
+                    <div class="control">
+                        <button type="submit" class="button is-white">Login</button>
+                    </div>
+                    <input type="hidden" name="next" value="{{ next }}">
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
