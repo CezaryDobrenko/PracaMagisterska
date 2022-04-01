@@ -109,3 +109,113 @@
     folder_id: 3
     created_date: 2020-01-01 13:00:00+00:00
     modified_date: 2020-01-01 13:00:00+00:00
+- model: scrapper.website
+  pk: 5
+  fields:
+    url: 'website5.com'
+    description: 'website 5 desc'
+    is_ready: true
+    folder_id: 1
+    created_date: 2020-01-01 13:00:00+00:00
+    modified_date: 2020-01-01 13:00:00+00:00
+- model: scrapper.selectortype
+  pk: 1
+  fields:
+    name: 'id'
+    description: 'Element DOM zawierający selektor id'
+    created_date: 2020-01-01 13:00:00+00:00
+    modified_date: 2020-01-01 13:00:00+00:00
+- model: scrapper.selectortype
+  pk: 2
+  fields:
+    name: 'class'
+    description: 'Element DOM zawierający selektor class'
+    created_date: 2020-01-01 13:00:00+00:00
+    modified_date: 2020-01-01 13:00:00+00:00
+- model: scrapper.selectortype
+  pk: 3
+  fields:
+    name: 'tag'
+    description: 'Elementy DOM wybranego znacznika np: <p>, <div> itp...'
+    created_date: 2020-01-01 13:00:00+00:00
+    modified_date: 2020-01-01 13:00:00+00:00
+- model: scrapper.selector
+  pk: 1
+  fields:
+    value: 'selector_1'
+    description: 'selector_1_desc'
+    website_id: 1
+    selector_type_id: 1
+    created_date: 2020-01-01 13:00:00+00:00
+    modified_date: 2020-01-01 13:00:00+00:00
+- model: scrapper.selector
+  pk: 2
+  fields:
+    value: 'selector_2'
+    description: 'selector_2_desc'
+    website_id: 1
+    selector_type_id: 2
+    created_date: 2020-01-01 13:00:00+00:00
+    modified_date: 2020-01-01 13:00:00+00:00
+- model: scrapper.selector
+  pk: 3
+  fields:
+    value: 'selector_3'
+    description: 'selector_3_desc'
+    website_id: 1
+    selector_type_id: 2
+    created_date: 2020-01-01 13:00:00+00:00
+    modified_date: 2020-01-01 13:00:00+00:00
+- model: scrapper.selector
+  pk: 4
+  fields:
+    value: 'selector_4'
+    description: 'selector_4_desc'
+    website_id: 1
+    selector_type_id: 3
+    created_date: 2020-01-01 13:00:00+00:00
+    modified_date: 2020-01-01 13:00:00+00:00
+- model: scrapper.selector
+  pk: 5
+  fields:
+    value: 'selector_5'
+    description: 'selector_5_desc'
+    website_id: 2
+    selector_type_id: 1
+    created_date: 2020-01-01 13:00:00+00:00
+    modified_date: 2020-01-01 13:00:00+00:00
+- model: scrapper.collecteddata
+  pk: 1
+  fields:
+    value: 'dana 1'
+    selector_id: 1
+    created_date: 2020-01-01 13:00:00+00:00
+    modified_date: 2020-01-01 13:00:00+00:00
+- model: scrapper.collecteddata
+  pk: 2
+  fields:
+    value: 'dana 2'
+    selector_id: 1
+    created_date: 2020-01-01 13:00:00+00:00
+    modified_date: 2020-01-01 13:00:00+00:00
+- model: scrapper.collecteddata
+  pk: 3
+  fields:
+    value: 'dana 3'
+    selector_id: 1
+    created_date: 2020-01-01 13:00:00+00:00
+    modified_date: 2020-01-01 13:00:00+00:00
+- model: scrapper.collecteddata
+  pk: 4
+  fields:
+    value: 'dana 4'
+    selector_id: 1
+    created_date: 2020-01-01 13:00:00+00:00
+    modified_date: 2020-01-01 13:00:00+00:00
+- model: scrapper.collecteddata
+  pk: 5
+  fields:
+    value: 'dana 5'
+    selector_id: 2
+    created_date: 2020-01-01 13:00:00+00:00
+    modified_date: 2020-01-01 13:00:00+00:00

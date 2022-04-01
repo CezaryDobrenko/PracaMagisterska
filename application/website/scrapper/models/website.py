@@ -13,9 +13,9 @@ class Website(BaseModel):
     url = models.CharField(max_length=250)
     description = models.CharField(max_length=250)
     is_ready = models.BooleanField(default=False)
-    folder_id = models.ForeignKey(to=Folder, on_delete=models.CASCADE, null=True)
+    folder = models.ForeignKey(to=Folder, on_delete=models.CASCADE, null=True)
 
     def __str__(self) -> str:
-        return f"{self.__class__.__name__}(id={self.id}, name={self.url}, counter={self.is_ready})"
+        return f"{self.__class__.__name__}(id={self.id}, name={self.url}, is_ready={self.is_ready})"
 
     __repr__ = __str__

@@ -13,9 +13,9 @@ class ApiKey(BaseModel):
     name = models.CharField(max_length=200)
     key = models.CharField(max_length=200)
     expired_at = models.DateTimeField(default=None, null=True)
-    user_id = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True)
 
     def __str__(self) -> str:
-        return f"{self.__class__.__name__}(id={self.id}, name={self.name}, counter={self.is_ready})"
+        return f"{self.__class__.__name__}(id={self.id}, name={self.name}, key={self.key})"
 
     __repr__ = __str__

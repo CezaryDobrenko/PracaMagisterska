@@ -11,9 +11,9 @@ class CollectedData(BaseModel):
         ordering = ("pk",)
 
     value = models.TextField()
-    selector_id = models.ForeignKey(to=Selector, on_delete=models.CASCADE, null=True)
+    selector = models.ForeignKey(to=Selector, on_delete=models.CASCADE, null=True)
 
     def __str__(self) -> str:
-        return f"{self.__class__.__name__}(id={self.id}, name={self.url}, counter={self.is_ready})"
+        return f"{self.__class__.__name__}(id={self.id}, value={self.value})"
 
     __repr__ = __str__

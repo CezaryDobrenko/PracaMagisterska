@@ -39,6 +39,27 @@ from scrapper.views.login import (
 from scrapper.views.folder.folder_views import (
     FoldersList,
     FoldersDelete,
+    FolderCreate,
+    FolderUpdate,
+)
+from scrapper.views.website.website_views import (
+    WebsitesList,
+    WebsitesDelete,
+    WebsiteCreate,
+    WebsiteUpdate,
+    WebsitesClear
+)
+from scrapper.views.selector.selectors_views import (
+    SelectorsList,
+    SelectorsDelete,
+    SelectorsCreate,
+    SelectorsClear,
+    SelectorsUpdate,
+    SelectorsApprove
+)
+from scrapper.views.collected_data.data_views import (
+    CollectedDataList,
+    CollectedDataDelete
 )
 
 
@@ -54,8 +75,29 @@ urlpatterns = [
     path("login/", LoginView.as_view(), name="login"),
     path("register/", RegisterView.as_view(), name="register"),
     path("statistics/", StatisticView.as_view(), name="statistics"),
+    
     path("folders/", FoldersList.as_view(), name="folders"),
-    path("folders/delete/<int:pk>/", FoldersDelete.as_view(), name="folders-delete",),
+    path("folders/add/", FolderCreate.as_view(), name="folders-add"),
+    path("folders/update/<int:pk>/", FolderUpdate.as_view(), name="folders-update"),
+    path("folders/delete/<int:pk>/", FoldersDelete.as_view(), name="folders-delete"),
+
+    path("websites/<int:pk>/", WebsitesList.as_view(), name="websites-settings"),
+    path("websites/add/<int:pk>/", WebsiteCreate.as_view(), name="websites-add"),
+    path("websites/update/<int:pk>/", WebsiteUpdate.as_view(), name="websites-update"),
+    path("websites/delete/<int:pk>/", WebsitesDelete.as_view(), name="websites-delete"),
+    path("websites/clear/<int:pk>/", WebsitesClear.as_view(), name="websites-clear"),
+
+    path("selectors/<int:pk>/", SelectorsList.as_view(), name="selectors-list",),
+    path("selectors/add/<int:pk>/", SelectorsCreate.as_view(), name="selectors-add",),
+    path("selectors/delete/<int:pk>/", SelectorsDelete.as_view(), name="selectors-delete"),
+    path("selectors/clear/<int:pk>/", SelectorsClear.as_view(), name="selectors-clear"),
+    path("selectors/update/<int:pk>/", SelectorsUpdate.as_view(), name="selectors-update"),
+    path("selectors/approve/<int:pk>/", SelectorsApprove.as_view(), name="selectors_approve"),
+
+
+    path("collected_data/<int:pk>/", CollectedDataList.as_view(), name="collected-data-list",),
+    path("collected_data/delete/<int:pk>/", CollectedDataDelete.as_view(), name="data-delete"),
+
     path("admin/", admin.site.urls),
     path("graphql/", csrf_exempt(FileUploadGraphQLView.as_view(graphiql=True))),
     path("scheduler/<interval>", scheduler, name="scheduler"),

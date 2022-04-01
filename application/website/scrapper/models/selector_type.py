@@ -10,8 +10,9 @@ class SelectorType(BaseModel):
         ordering = ("pk",)
 
     name = models.CharField(max_length=250)
+    description = models.CharField(max_length=250)
 
     def __str__(self) -> str:
-        return f"{self.__class__.__name__}(id={self.id}, name={self.name})"
+        return f"Nazwa: {self.name}, Opis: {self.description}"
 
     __repr__ = __str__

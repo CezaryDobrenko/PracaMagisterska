@@ -1752,6 +1752,12 @@ body {
 [tabindex="-1"]:focus:not(:focus-visible) {
   outline: 0 !important; }
 
+.form-control-checkbox{
+  display: block;
+  width: 30px;
+  height: 30px;
+}
+
 hr {
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
@@ -5767,7 +5773,8 @@ input[type="button"].btn-block {
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   min-height: 1px;
-  padding: 1.25rem; }
+  padding: 1.25rem; 
+}
 
 .card-title {
   margin-bottom: 0.75rem; }
@@ -14247,4 +14254,3 @@ dl {
     margin: auto 0;
     color: #b1b1b1; }
 
-/*# sourceMappingURL=style.css.map */

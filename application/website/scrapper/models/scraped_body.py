@@ -12,7 +12,7 @@ class ScrapedBody(BaseModel):
 
     body = models.TextField()
     index = models.IntegerField()
-    website_id = models.ForeignKey(to=Website, on_delete=models.CASCADE, null=False)
+    website = models.ForeignKey(to=Website, on_delete=models.CASCADE, null=False)
 
     def __str__(self) -> str:
         return f"{self.__class__.__name__}(id={self.id}, body={self.body}, index={self.index})"

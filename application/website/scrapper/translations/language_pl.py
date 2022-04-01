@@ -1,4 +1,4 @@
-class FolderTranslator:
+class Translator:
 
     @staticmethod
     def interval_to_pl(value: str) -> str:
@@ -21,7 +21,7 @@ class FolderTranslator:
             "DAY6": "Co 6 dni",
             "WEEK": "Co tydzień",
         }
-        return translation_dict[value]
+        return translation_dict.get(value)
 
     @staticmethod
     def is_ready_to_pl(value: bool) -> str:
@@ -31,6 +31,9 @@ class FolderTranslator:
 
     @staticmethod
     def scraping_date_to_pl(value):
+        if value is None:
+            return value
+
         converted_date = value.strftime("%H:%M:%S, %d-%B-%Y")
         lookup_table = {
             "January": "Styczeń",   "February": "Luty",

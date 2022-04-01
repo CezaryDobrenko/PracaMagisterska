@@ -22,8 +22,9 @@ class Interval:
         WEEK = "WEEK"
 
     def find_next_scraping_date(last_scrape_date, scrape_interval):
-        if not last_scrape_date:
-            return "Brak"
+        if last_scrape_date is None:
+            return last_scrape_date
+            
         return {
             'MINUTE5': last_scrape_date + timedelta(minutes=5),
             'MINUTE10': last_scrape_date + timedelta(minutes=10),

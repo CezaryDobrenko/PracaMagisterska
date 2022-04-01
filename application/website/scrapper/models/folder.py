@@ -17,7 +17,7 @@ class Folder(BaseModel):
         max_length=20, choices=Interval.Options.choices, default=Interval.Options.HOUR1
     )
     last_scraping = models.DateTimeField(default=None, null=True)
-    user_id = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True)
 
     def __str__(self) -> str:
         return f"{self.__class__.__name__}(id={self.id}, name={self.name}, counter={self.is_ready})"

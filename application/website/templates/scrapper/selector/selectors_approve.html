@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Potwiedź poprawność{% endblock %}
+{% block content %}
+    {{ website_data }}
+    {% for selector_data in selectors_data %}
+        {{ selector_data }}
+    {% endfor %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="control mt-5">
+            <input type="submit" class="button is-link" value="Confirm">
+            <a class="btn btn-light" href="{% url 'selectors-list' pk=website_data.id %}">Powrót</a>
+        </div>
+    </form>
+{% endblock %}
