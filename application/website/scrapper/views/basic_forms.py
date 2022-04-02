@@ -5,7 +5,7 @@ from scrapper.translations.language_pl import Translator
 class BaseForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        form_to_translate = ["FolderUpdateForm"]
+        form_to_translate = ["FolderUpdateForm", "FolderCreateForm"]
         form_name = self.__class__.__name__
         for visible in self.visible_fields():
             field_type = visible.field.widget.__class__.__name__

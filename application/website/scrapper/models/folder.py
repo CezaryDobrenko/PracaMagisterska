@@ -20,6 +20,6 @@ class Folder(BaseModel):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True)
 
     def __str__(self) -> str:
-        return f"{self.__class__.__name__}(id={self.id}, name={self.name}, counter={self.is_ready})"
+        return f"{self.__class__.__name__}(id={self.id}, name={self.name}, is_ready={self.is_ready})"
 
     __repr__ = __str__
