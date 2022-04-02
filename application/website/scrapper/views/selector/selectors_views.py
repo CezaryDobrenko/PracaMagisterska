@@ -3,7 +3,13 @@ from django.views.generic import ListView, DeleteView, FormView, UpdateView
 from scrapper.models.selectors import Selector
 from scrapper.models.collected_data import CollectedData
 from scrapper.models.website import Website
-from .selectors_forms import SelectorCreateForm, SelectorClearForm, SelectorUpdateForm, SelectorApproveForm
+from .selectors_forms import (
+    SelectorCreateForm, 
+    SelectorClearForm, 
+    SelectorUpdateForm, 
+    SelectorApproveForm, 
+    SelectorCreateGUIForm
+)
 from django.urls import reverse
 
 class SelectorsList(LoginRequiredMixin, ListView):
@@ -81,6 +87,22 @@ class SelectorsCreate(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         website_id = self.request.resolver_match.kwargs.get("pk")
+        form.cleaned_data["website_id"] = website_id
+        form.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse("selectors-list", kwargs={"pk": self.kwargs["pk"]})
+
+
+class SelectorsCreateGUI(LoginRequiredMixin, FormView):
+    form_class = SelectorCreateGUIForm
+    template_name = "scrapper/selector/selectors_add_gui.html"
+
+    def form_valid(self, form):
+        website_id = self.request.resolver_match.kwargs.get("pk")
+        website = Website.objects.get(id=website_id)
+        print(website)
         form.cleaned_data["website_id"] = website_id
         form.save()
         return super().form_valid(form)

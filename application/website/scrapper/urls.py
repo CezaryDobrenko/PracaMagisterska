@@ -55,7 +55,8 @@ from scrapper.views.selector.selectors_views import (
     SelectorsCreate,
     SelectorsClear,
     SelectorsUpdate,
-    SelectorsApprove
+    SelectorsApprove,
+    SelectorsCreateGUI
 )
 from scrapper.views.collected_data.data_views import (
     CollectedDataList,
@@ -91,11 +92,11 @@ urlpatterns = [
 
     path("selectors/<int:pk>/", SelectorsList.as_view(), name="selectors-list",),
     path("selectors/add/<int:pk>/", SelectorsCreate.as_view(), name="selectors-add",),
+    path("selectors/add_gui/<int:pk>/", SelectorsCreateGUI.as_view(), name="selectors-add-gui"),
     path("selectors/delete/<int:pk>/", SelectorsDelete.as_view(), name="selectors-delete"),
     path("selectors/clear/<int:pk>/", SelectorsClear.as_view(), name="selectors-clear"),
     path("selectors/update/<int:pk>/", SelectorsUpdate.as_view(), name="selectors-update"),
     path("selectors/approve/<int:pk>/", SelectorsApprove.as_view(), name="selectors_approve"),
-
 
     path("collected_data/<int:pk>/", CollectedDataList.as_view(), name="collected-data-list",),
     path("collected_data/delete/<int:pk>/", CollectedDataDelete.as_view(), name="collected-data-delete"),

@@ -23,6 +23,19 @@ class SelectorCreateForm(BaseForm):
         )
         selector.save()
 
+
+class SelectorCreateGUIForm(BaseForm):
+    name = forms.CharField(label='Wybrane selectory', widget=forms.Textarea)
+
+    class Meta:
+        model = Selector
+        fields = ["name"]
+    
+    def save(self, commit=True):
+        print("-----------------------")
+        print("added new selectors")
+        print("-----------------------")
+
 class SelectorApproveForm(BaseForm):
     class Meta:
         model = Selector

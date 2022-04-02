@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}Dodaj selektory GUI{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-8 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+
+
+                    <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-title">Konfiguracja strony internetowej:</h4>
+                          <ul>
+                            <li style="color: black;">Identyfikator: {{ website_data.id }}</li>
+                            <li style="color: black;">Adres WWW: {{ website_data.url }}</li>
+                            <li style="color: black;">Opis: {{ website_data.description }}</li>
+                          </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-title">Konfiguracja selektorów:</h4>
+                          {% for selector_data in selectors_data %}
+                            <hr>
+                            <ul>
+                                <li style="color: black;">Wartość: {{ selector_data.value }}</li>
+                                <li style="color: black;">Opis: {{ selector_data.desc }}</li>
+                                <li style="color: black;">Typ: {{ selector_data.type }}</li>
+                            </ul>
+                          {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Akcje</h4>
+              <div class="template-demo">
+                {% include "base_form.html" %}
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+{% endblock %}
