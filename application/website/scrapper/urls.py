@@ -59,7 +59,9 @@ from scrapper.views.selector.selectors_views import (
 )
 from scrapper.views.collected_data.data_views import (
     CollectedDataList,
-    CollectedDataDelete
+    CollectedDataDelete,
+    CollectedDataClear,
+    CollectedDataUpdate
 )
 
 
@@ -96,7 +98,9 @@ urlpatterns = [
 
 
     path("collected_data/<int:pk>/", CollectedDataList.as_view(), name="collected-data-list",),
-    path("collected_data/delete/<int:pk>/", CollectedDataDelete.as_view(), name="data-delete"),
+    path("collected_data/delete/<int:pk>/", CollectedDataDelete.as_view(), name="collected-data-delete"),
+    path("collected_data/update/<int:pk>/", CollectedDataUpdate.as_view(), name="collected-data-update"),
+    path("collected_data/clear/<int:pk>/", CollectedDataClear.as_view(), name="collected-data-clear"),
 
     path("admin/", admin.site.urls),
     path("graphql/", csrf_exempt(FileUploadGraphQLView.as_view(graphiql=True))),

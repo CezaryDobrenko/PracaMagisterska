@@ -27,7 +27,7 @@
       <div class="card-body">
         <h4 class="card-title">KROK 2</h4>
         <div class="media">
-          <i class="mdi mdi-timer icon-md text-success d-flex align-self-end mr-3"></i>
+          <i class="mdi mdi-timer icon-md d-flex align-self-end mr-3"></i>
           <div class="media-body">
             <p class="card-text" style="color: black;">
               Wybierz interwał czasowy w którym mają być pobierane dane i
@@ -43,7 +43,7 @@
       <div class="card-body">
         <h4 class="card-title">KROK 3</h4>
         <div class="media">
-          <i class="mdi mdi-eye icon-md text-success d-flex align-self-end mr-3"></i>
+          <i class="mdi mdi-eye icon-md d-flex align-self-end mr-3"></i>
           <div class="media-body">
             <p class="card-text" style="color: black;">
               Podgląd danych jest dostępny w widoku listy zdefniowanych selektorów dla strony www.
@@ -60,11 +60,14 @@
         <div style="margin-bottom: 60px;">
           <div class="dropdown pull-right">
             <button type="button" class="btn btn-light dropdown-toggle" id="dropdownMenuIconButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="mdi mdi-clock" style="font-size: 22px;"></i>
+              <i class="mdi mdi-arrow-down-drop-circle" style="font-size: 22px;"></i>
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuIconButton3" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
               <h6 class="dropdown-header"></h6>
-              <a class="dropdown-item" href="{% url 'folders-add' %}"><i class="mdi mdi-clock"></i>Dodaj nowy folder</a>
+              <a style="color: black; font-size: 20px;" class="dropdown-item" href="{% url 'folders-add' %}">
+                <i style="color: #33c92d; font-size: 25px;" class="mdi mdi-plus-circle"></i> Dodaj nowy folder
+              </a>
+              <hr>
             </div>
           </div>
         </div>
@@ -84,7 +87,7 @@
                 </thead>
                 <tbody>
                   {% for folder in object_list %}
-                      <tr>
+                        <tr style="margin-bottom:40px;">
                           <td data-label="ID"> {{ folder.pk }} </td>
                           <td data-label="Nazwa"> {{ folder.name }} </td>
                           <td data-label="Czy aktywny"> {{ folder.is_ready }} </td>
@@ -112,7 +115,7 @@
                               Proces został deaktywowany
                             {% endif %}
                           </td>
-                          <td data-label="Akcje"> 
+                          <td class="responsive-length" data-label="Akcje"> 
                             <a href="{% url 'websites-settings' pk=folder.pk %}">
                               <span class="icon-bg">
                                 <i class="mdi mdi-settings" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>

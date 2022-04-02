@@ -1,26 +1,78 @@
 {% extends 'base.html' %}
-{% block title %}Foldery{% endblock %}
+{% block title %}Zebrane dane{% endblock %}
 {% block custom_styles %}
   {% load static %}
   <link rel="stylesheet" href="{% static 'assets/css/style_responsive_table.css' %}">
 {% endblock %}
 {% block content %}
+<div class="row">       
+  <div class="col-md-4 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">KROK 1</h4>
+        <div class="media">
+          <i class="mdi mdi-folder icon-md d-flex align-self-start mr-3"></i>
+          <div class="media-body">
+            <p class="card-text" style="color: black;">
+              Utwórz folder w którym zdefiniujesz strony www do pobrania danych.
+              Przejdź do folderu i dokończ proces konfiguracji procesu zbierania danych.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">KROK 2</h4>
+        <div class="media">
+          <i class="mdi mdi-timer icon-md d-flex align-self-end mr-3"></i>
+          <div class="media-body">
+            <p class="card-text" style="color: black;">
+              Wybierz interwał czasowy w którym mają być pobierane dane i
+              aktywuj ustaw status wybranego folderu na aktywny.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">KROK 3</h4>
+        <div class="media">
+          <i class="mdi mdi-eye icon-md text-success d-flex align-self-end mr-3"></i>
+          <div class="media-body">
+            <p class="card-text" style="color: black;">
+              Podgląd danych jest dostępny w widoku listy zdefniowanych selektorów dla strony www.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
         <div style="margin-bottom: 60px;">
           <div class="dropdown pull-right">
             <a href="{% url 'selectors-list' pk=return_id %}" style="margin-left: 20px;">
-              <button type="button" class="btn btn-success btn-rounded btn-icon" style="margin-right: 15px;">
-                <i class="mdi mdi-arrow-left-bold"></i>
+              <button type="button" class="btn btn-primary btn-rounded btn-icon" style="margin-right: 15px;">
+                <i class="mdi mdi-arrow-left-bold" style="font-size: 22px;"></i>
               </button>
             </a>
             <button type="button" class="btn btn-light dropdown-toggle" id="dropdownMenuIconButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="mdi mdi-clock"></i>
+              <i class="mdi mdi-arrow-down-drop-circle" style="font-size: 22px;"></i>
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuIconButton3" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
               <h6 class="dropdown-header"></h6>
-              <a class="dropdown-item" href="#"><i class="mdi mdi-clock"></i>Wyczyść zebrane dane</a>
+              <a style="color: black; font-size: 20px;" class="dropdown-item" href="{% url 'collected-data-clear' pk=return_id %}">
+                <i style="color: #33c92d; font-size: 25px;" class="mdi mdi-delete"></i> Wyczyść zebrane dane
+              </a>
+              <hr>
             </div>
           </div>
         </div>
@@ -35,16 +87,20 @@
                 </thead>
                 <tbody>
                   {% for data in object_list %}
-                      <tr>
-                          <td> {{ data.pk }} </td>
-                          <td> {{ data.created_date }} </td>
-                          <td> {{ data.value }} </td>
-                          <td style="width: 50px;"> 
-                              <span class="icon-bg"><i class="mdi mdi-lead-pencil" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i></span>
-                              <a href="{% url 'data-delete' pk=data.pk %}">
-                                <span class="icon-bg">
-                                  <i class="mdi mdi-delete" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
-                                </span>
+                      <tr style="margin-bottom:40px;">
+                          <td data-label="ID"> {{ data.pk }} </td>
+                          <td data-label="Data utw."> {{ data.created_date }} </td>
+                          <td data-label="Wartość"> {{ data.value }} </td>
+                          <td class="responsive-length" data-label="Akcje"> 
+                            <a href="{% url 'collected-data-update' pk=data.pk %}">
+                              <span class="icon-bg">
+                                <i class="mdi mdi-lead-pencil" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
+                              </span>
+                            </a>
+                            <a href="{% url 'collected-data-delete' pk=data.pk %}">
+                              <span class="icon-bg">
+                                <i class="mdi mdi-delete" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
+                              </span>
                             </a>
                           </td>
                       </tr>

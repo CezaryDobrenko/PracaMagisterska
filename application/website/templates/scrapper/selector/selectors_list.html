@@ -71,13 +71,22 @@
                 </button>
               </a>
               <button type="button" class="btn btn-light dropdown-toggle" id="dropdownMenuIconButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="mdi mdi-clock" style="font-size: 22px;"></i>
+                <i class="mdi mdi-arrow-down-drop-circle" style="font-size: 22px;"></i>
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuIconButton3" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
                 <h6 class="dropdown-header"></h6>
-                <a class="dropdown-item" href="{% url 'selectors-add' pk=website_id %}"><i class="mdi mdi-clock"></i>Dodaj nowy selektor</a>
-                <a class="dropdown-item" href="#"><i class="mdi mdi-clock"></i>Dodaj nowe selektory (GUI)</a>
-                <a class="dropdown-item" href="{% url 'selectors-clear' pk=website_id %}"><i class="mdi mdi-clock"></i>Wyczyść wszystkie selektory</a>
+                <a style="color: black; font-size: 20px;" class="dropdown-item" href="{% url 'selectors-add' pk=website_id %}">
+                  <i style="color: #33c92d; font-size: 25px;" class="mdi mdi-plus-circle"></i> Dodaj nowy selektor
+                </a>
+                <hr>
+                <a style="color: black; font-size: 20px;" class="dropdown-item" href="#">
+                  <i style="color: #33c92d; font-size: 25px;" class="mdi mdi-plus-circle"></i> Dodaj nowe selektory (GUI)
+                </a>
+                <hr>
+                <a style="color: black; font-size: 20px;" class="dropdown-item" href="{% url 'selectors-clear' pk=website_id %}">
+                  <i style="color: #33c92d; font-size: 25px;" class="mdi mdi-delete"></i> Wyczyść wszystkie selektory
+                </a>
+                <hr>
               </div>
             </div>
         </div>
@@ -96,7 +105,7 @@
                 </thead>
                 <tbody>
                   {% for selector in object_list %}
-                      <tr>
+                      <tr style="margin-bottom:40px;">
                           <td data-label="ID"> {{ selector.pk }} </td>
                           <td data-label="Typ"> {{ selector.type }} </td>
                           <td data-label="Wartość"> {{ selector.value }} </td>
@@ -110,7 +119,7 @@
                               </span>
                             </a>
                           </td>
-                          <td data-label="Akcje"> 
+                          <td class="responsive-length" data-label="Akcje"> 
                               <a href="{% url 'selectors-update' pk=selector.pk %}">
                                 <span class="icon-bg">
                                   <i class="mdi mdi-lead-pencil" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>

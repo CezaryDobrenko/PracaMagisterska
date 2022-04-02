@@ -5,25 +5,21 @@ from scrapper.translations.language_pl import Translator
 class BaseForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        form_to_translate = ["FolderUpdateForm"]
+        form_name = self.__class__.__name__
         for visible in self.visible_fields():
             field_type = visible.field.widget.__class__.__name__
-            if field_type == "Select":
-                visible.field.choices = self.__select_hander(visible.field)
+            if field_type == "Select" and form_name in form_to_translate:
+                visible.field.choices = self.__translator_hander(visible.field)
                 visible.field.widget.attrs['class'] = 'form-control'
             elif field_type == "CheckboxInput":
                 visible.field.widget.attrs['class'] = 'form-control-checkbox'
             else:
                 visible.field.widget.attrs['class'] = 'form-control'
 
-    def __select_hander(self, field):
+    def __translator_hander(self, field):
         parsed_choices = []
         for item in field.choices:
-            key, value = item
-            if self.__check_if_value_is_str(value):
-                parsed_choices.append((key, Translator.interval_to_pl(key)))
-            else:
-                parsed_choices.append((key, value))
+            key, _ = item
+            parsed_choices.append((key, Translator.interval_to_pl(key)))
         return parsed_choices
-
-    def __check_if_value_is_str(self, value):
-        return type(value) == "str"

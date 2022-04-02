@@ -13,6 +13,6 @@ class SelectorType(BaseModel):
     description = models.CharField(max_length=250)
 
     def __str__(self) -> str:
-        return f"Nazwa: {self.name}, Opis: {self.description}"
+        return f"{self.name} ({self.description})"
 
     __repr__ = __str__
