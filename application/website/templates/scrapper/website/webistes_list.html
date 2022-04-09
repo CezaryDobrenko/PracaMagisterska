@@ -81,6 +81,9 @@
             </div>
           </div>
         </div>
+        <div style="margin-bottom: 60px;">
+          <h2 style="color: black;">Zdefiniowane strony interetowe:</h2>
+        </div>
         <div style="overflow-x:auto;">
             <table class="table table-bordered">
                 <thead>
@@ -89,6 +92,7 @@
                     <th> Adres WWW </th>
                     <th> Opis </th>
                     <th> Czy aktywny </th>
+                    <th> Czy JSON </th>
                     <th> Ilość selektorów </th>
                     <th> Akcje</th>
                   </tr>
@@ -100,6 +104,7 @@
                           <td data-label="Adres WWW"> {{ website.url }} </td>
                           <td data-label="Opis"> {{ website.description }} </td>
                           <td data-label="Czy aktywny"> {{ website.is_ready }} </td>
+                          <td data-label="Czy JSON"> {{ website.is_simplified }} </td>
                           <td data-label="Ilość selektorów"> {{ website.selectors }} </td>
                           <td class="responsive-length" data-label="Akcje"> 
                               <a href="{% url 'selectors-list' pk=website.pk %}">

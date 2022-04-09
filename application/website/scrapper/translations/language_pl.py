@@ -47,3 +47,35 @@ class Translator:
             if k in converted_date:
                 converted_date = converted_date.replace(k, v)
         return converted_date
+
+    @staticmethod
+    def expired_date_to_pl(value):
+        if value is None:
+            return value
+
+        converted_date = value.strftime("%d-%B-%Y")
+        lookup_table = {
+            "January": "Styczeń",   "February": "Luty",
+            "March": "Marzec",       "April": "Kwiecień",
+            "May": "Maj",           "June": "Czerwiec",
+            "July": "Lipiec",       "August": "Sierpień",
+            "September": "Wrzesień",  "October": "Październik",
+            "November": "Listopad", "December": "Grudzień"
+        }
+        for k, v in lookup_table.items():
+            if k in converted_date:
+                converted_date = converted_date.replace(k, v)
+        return converted_date
+
+    @staticmethod
+    def month_to_pl(month):
+        lookup_table = {
+            "January": "Styczeń",   "February": "Luty",
+            "March": "Marzec",       "April": "Kwiecień",
+            "May": "Maj",           "June": "Czerwiec",
+            "July": "Lipiec",       "August": "Sierpień",
+            "September": "Wrzesień",  "October": "Październik",
+            "November": "Listopad", "December": "Grudzień"
+        }
+        return lookup_table.get(month)
+

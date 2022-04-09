@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from scrapper.translations.language_pl import Translator
 from scrapper.models.utils.intervals import Interval
 from .folder_forms import FolderCreateForm, FolderUpdateForm
+from datetime import timedelta
 
 class FoldersList(LoginRequiredMixin, ListView):
     model = Folder
@@ -20,8 +21,8 @@ class FoldersList(LoginRequiredMixin, ListView):
             folder.sites = Website.objects.filter(folder_id=folder.id).count()
             folder.is_ready = Translator.is_ready_to_pl(folder.is_ready)
             folder.scraping_interval = Translator.interval_to_pl(folder.scraping_interval)
-            folder.last_scraping = Translator.scraping_date_to_pl(folder.last_scraping)
-            folder.next_scraping = Translator.scraping_date_to_pl(next_scraping_date)
+            folder.last_scraping = Translator.scraping_date_to_pl(folder.last_scraping + timedelta(hours=2))
+            folder.next_scraping = Translator.scraping_date_to_pl(next_scraping_date + timedelta(hours=2))
             folders.append(folder)
         return folders
 

@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DeleteView, ListView, FormView, UpdateView
 from scrapper.models.website import Website
 from scrapper.models.selectors import Selector
+from scrapper.models.folder import Folder
 from scrapper.translations.language_pl import Translator
 from .website_forms import WebsiteCreateForm, WebsiteUpdateForm, WebsiteClearForm
 from django.urls import reverse_lazy, reverse
@@ -18,6 +19,7 @@ class WebsitesList(LoginRequiredMixin, ListView):
         websites = []
         for website in Website.objects.filter(folder_id=folder_id):
             website.is_ready = Translator.is_ready_to_pl(website.is_ready)
+            website.is_simplified = Translator.is_ready_to_pl(website.is_simplified)
             website.selectors = Selector.objects.filter(website_id=website.id).count()
             websites.append(website)
         return websites
@@ -26,6 +28,22 @@ class WebsitesList(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context["folder_id"] = self.request.resolver_match.kwargs.get("pk")
         return context
+
+
+class AllWebsitesList(LoginRequiredMixin, ListView):
+    model = Website
+    template_name = "scrapper/website/all_webistes_list.html"
+    paginate_by = 20
+    ordering = ['pk']
+
+    def get_queryset(self):
+        folders = Folder.objects.filter(user_id=self.request.user.id)
+        websites = []
+        for folder in folders:
+            folder_websites = Website.objects.filter(folder_id=folder.id)
+            for website in folder_websites:
+                websites.append(website)
+        return websites
 
 
 class WebsitesDelete(LoginRequiredMixin, DeleteView):

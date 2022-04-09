@@ -9,7 +9,7 @@ from .data_forms import CollectedDataClearForm, CollectedDataUpdateForm
 class CollectedDataList(LoginRequiredMixin, ListView):
     model = CollectedData
     template_name = "scrapper/collected_data/data_list.html"
-    paginate_by = 20
+    paginate_by = 100
     ordering = ['pk']
 
     def get_queryset(self):
@@ -21,6 +21,7 @@ class CollectedDataList(LoginRequiredMixin, ListView):
         selector_id = self.request.resolver_match.kwargs.get("pk")
         selector = Selector.objects.filter(id=selector_id).first()
         context["return_id"] = selector.website.id
+        context["id"] = selector.id
         return context
 
 

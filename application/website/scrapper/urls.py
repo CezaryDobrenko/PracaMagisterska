@@ -20,7 +20,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.decorators.csrf import csrf_exempt
 from graphene_file_upload.django import FileUploadGraphQLView
-from scheduler.views import scheduler, scheduler2
+from scheduler.views import scheduler
 from scrapper.views.basic_views import (
     DashboardView,
     AboutView,
@@ -28,12 +28,11 @@ from scrapper.views.basic_views import (
     AuthorView,
     ContactView,
     ProcessView,
-    RegisterView
+    PrivateDashboardView,
 )
-from scrapper.views.login import (
+from scrapper.views.auth.auth_views import (
     LoginView,
-    StatisticView,
-    PrivateDashboardView
+    RegisterView,
 )
 
 from scrapper.views.folder.folder_views import (
@@ -47,7 +46,8 @@ from scrapper.views.website.website_views import (
     WebsitesDelete,
     WebsiteCreate,
     WebsiteUpdate,
-    WebsitesClear
+    WebsitesClear,
+    AllWebsitesList,
 )
 from scrapper.views.selector.selectors_views import (
     SelectorsList,
@@ -64,6 +64,20 @@ from scrapper.views.collected_data.data_views import (
     CollectedDataClear,
     CollectedDataUpdate
 )
+from scrapper.views.export.export_views import (
+    ExportList,
+    ExportJSON,
+    ExportTXT,
+    ExportXML,
+    ExportCSV
+)
+from scrapper.views.api_key.api_views import (
+    ApiKeyList,
+    ApiKeyCreate,
+    ApiKeyDelete,
+    ApiKeyClear,
+    ApiKeyUpdate
+)
 
 
 urlpatterns = [
@@ -77,13 +91,13 @@ urlpatterns = [
     path("process/", ProcessView.as_view(), name="process"),
     path("login/", LoginView.as_view(), name="login"),
     path("register/", RegisterView.as_view(), name="register"),
-    path("statistics/", StatisticView.as_view(), name="statistics"),
     
     path("folders/", FoldersList.as_view(), name="folders"),
     path("folders/add/", FolderCreate.as_view(), name="folders-add"),
     path("folders/update/<int:pk>/", FolderUpdate.as_view(), name="folders-update"),
     path("folders/delete/<int:pk>/", FoldersDelete.as_view(), name="folders-delete"),
 
+    path("websites/", AllWebsitesList.as_view(), name="websites"),
     path("websites/<int:pk>/", WebsitesList.as_view(), name="websites-settings"),
     path("websites/add/<int:pk>/", WebsiteCreate.as_view(), name="websites-add"),
     path("websites/update/<int:pk>/", WebsiteUpdate.as_view(), name="websites-update"),
@@ -103,8 +117,19 @@ urlpatterns = [
     path("collected_data/update/<int:pk>/", CollectedDataUpdate.as_view(), name="collected-data-update"),
     path("collected_data/clear/<int:pk>/", CollectedDataClear.as_view(), name="collected-data-clear"),
 
+    path("export/list/", ExportList.as_view(), name="export-list"),
+    path("export/json/<int:pk>", ExportJSON.as_view(), name="export-json"),
+    path("export/txt/<int:pk>", ExportTXT.as_view(), name="export-txt"),
+    path("export/xml/<int:pk>", ExportXML.as_view(), name="export-xml"),
+    path("export/csv/<int:pk>", ExportCSV.as_view(), name="export-csv"),
+
+    path("api_keys/list/", ApiKeyList.as_view(), name="api-key-list"),
+    path("api_keys/add/", ApiKeyCreate.as_view(), name="api-key-add"),
+    path("api_keys/delete/<int:pk>", ApiKeyDelete.as_view(), name="api-key-delete"),
+    path("api_keys/update/<int:pk>", ApiKeyUpdate.as_view(), name="api-key-update"),
+    path("api_keys/clear/", ApiKeyClear.as_view(), name="api-key-clear"),
+
     path("admin/", admin.site.urls),
     path("graphql/", csrf_exempt(FileUploadGraphQLView.as_view(graphiql=True))),
     path("scheduler/<interval>", scheduler, name="scheduler"),
-    path("scheduler2/<interval>", scheduler2, name="scheduler2"),
 ]

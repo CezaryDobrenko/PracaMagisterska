@@ -49,7 +49,7 @@
     name: 'folder_1'
     is_ready: true
     scraping_interval: 'HOUR1'
-    last_scraping: 2020-08-07 12:11:13.820951+00:00
+    last_scraping: 2023-08-07 12:11:13.820951+00:00
     user_id: 1
     created_date: 2020-01-01 13:00:00+00:00
     modified_date: 2020-01-01 13:00:00+00:00

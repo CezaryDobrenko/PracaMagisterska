@@ -7,11 +7,12 @@ import validators
 class WebsiteCreateForm(BaseForm):
     class Meta:
         model = Website
-        fields = ["url", "description", "is_ready"]
+        fields = ["url", "description", "is_ready", "is_simplified"]
         labels = {
             'url': _('Adres WWW strony:'),
             'description': _('Opis:'),
             'is_ready': _('Czy aktywnya'),
+            'is_simplified': _('Czy pobrane dane przetwarzać do formatu JSON (tryb zaawansowany)?'),
         }
 
     def clean(self):
@@ -46,9 +47,10 @@ class WebsiteClearForm(BaseForm):
 class WebsiteUpdateForm(BaseForm):
     class Meta:
         model = Website
-        fields = ["url", "description", "is_ready"]
+        fields = ["url", "description", "is_ready", "is_simplified"]
         labels = {
             'url': _('Adres WWW strony:'),
             'description': _('Opis:'),
-            'is_ready': _('Czy aktywnya'),
+            'is_ready': _('Czy aktywna?'),
+            'is_simplified': _('Czy pobrane dane przetwarzać do formatu JSON (tryb zaawansowany)?'),
         }

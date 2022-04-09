@@ -19,6 +19,10 @@ class Folder(BaseModel):
     last_scraping = models.DateTimeField(default=None, null=True)
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True)
 
+    def update_last_scraping(self, scrape_date):
+        self.last_scraping = scrape_date
+        self.save()
+
     def __str__(self) -> str:
         return f"{self.__class__.__name__}(id={self.id}, name={self.name}, is_ready={self.is_ready})"
 

@@ -11,11 +11,11 @@
       <div class="card-body">
         <h4 class="card-title">KROK 1</h4>
         <div class="media">
-          <i class="mdi mdi-folder icon-md d-flex align-self-start mr-3"></i>
+          <i class="mdi mdi-content-paste icon-md text-success d-flex align-self-start mr-3"></i>
           <div class="media-body">
             <p class="card-text" style="color: black;">
-              Utwórz folder w którym zdefiniujesz strony www do pobrania danych.
-              Przejdź do folderu i dokończ proces konfiguracji procesu zbierania danych.
+              Zarejestruj się w platformie, zdefiniuj strony z których chcesz pobierać dane
+              za pomocą przejrzystego kreatora.
             </p>
           </div>
         </div>
@@ -27,11 +27,10 @@
       <div class="card-body">
         <h4 class="card-title">KROK 2</h4>
         <div class="media">
-          <i class="mdi mdi-timer icon-md d-flex align-self-end mr-3"></i>
+          <i class="mdi mdi-account-key icon-md text-success d-flex align-self-end mr-3"></i>
           <div class="media-body">
             <p class="card-text" style="color: black;">
-              Wybierz interwał czasowy w którym mają być pobierane dane i
-              aktywuj ustaw status wybranego folderu na aktywny.
+              Utwórz klucz API, ktory pozwoli ci się połączyć z API aplikacji SCRAPPERHUB.
             </p>
           </div>
         </div>
@@ -43,10 +42,11 @@
       <div class="card-body">
         <h4 class="card-title">KROK 3</h4>
         <div class="media">
-          <i class="mdi mdi-eye icon-md text-success d-flex align-self-end mr-3"></i>
+          <i class="mdi mdi-sync icon-md text-success d-flex align-self-end mr-3"></i>
           <div class="media-body">
             <p class="card-text" style="color: black;">
-              Podgląd danych jest dostępny w widoku listy zdefniowanych selektorów dla strony www.
+              Połącz się do dedykowanego API aplikacji w celu pozyskania danych zebranych
+              przez SCRAPPERHUB.
             </p>
           </div>
         </div>
@@ -59,53 +59,57 @@
       <div class="card-body">
         <div style="margin-bottom: 60px;">
           <div class="dropdown pull-right">
-            <a href="{% url 'selectors-list' pk=return_id %}" style="margin-left: 20px;">
-              <button type="button" class="btn btn-primary btn-rounded btn-icon" style="margin-right: 15px;">
-                <i class="mdi mdi-arrow-left-bold" style="font-size: 22px;"></i>
-              </button>
-            </a>
             <button type="button" class="btn btn-light dropdown-toggle" id="dropdownMenuIconButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="mdi mdi-arrow-down-drop-circle" style="font-size: 22px;"></i>
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuIconButton3" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 39px, 0px);">
               <h6 class="dropdown-header"></h6>
-              <a style="color: black; font-size: 20px;" class="dropdown-item" href="{% url 'collected-data-clear' pk=id %}">
-                <i style="color: #33c92d; font-size: 25px;" class="mdi mdi-delete"></i> Wyczyść zebrane dane
+              <a style="color: black; font-size: 20px;" class="dropdown-item" href="{% url 'api-key-add' %}">
+                <i style="color: #33c92d; font-size: 25px;" class="mdi mdi-delete"></i> Wygeneruj nowy klucz
+              </a>
+              <hr>
+              <a style="color: black; font-size: 20px;" class="dropdown-item" href="{% url 'api-key-clear' %}">
+                <i style="color: #33c92d; font-size: 25px;" class="mdi mdi-delete"></i> Wyczyść wszystkie klucze
               </a>
               <hr>
             </div>
           </div>
         </div>
         <div style="margin-bottom: 60px;">
-          <h2 style="color: black;">Pobrane dane:</h2>
+          <h2 style="color: black;">Zdefiniowane klucze API:</h2>
         </div>
         <div style="overflow-x:auto;">
             <table class="table table-bordered">
                 <thead>
                   <tr>
                     <th> ID </th>
-                    <th> Data </th>
-                    <th> Wartość </th>
+                    <th> Nazwa </th>
+                    <th> Klucz </th>
+                    <th> Czy aktywny? </th>
+                    <th> Aktywny do: </th>
+                    <th> Akcje: </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {% for data in object_list %}
+                  {% for key in object_list %}
                       <tr style="margin-bottom:40px;">
-                          <td data-label="ID"> {{ data.pk }} </td>
-                          <td data-label="Data utw."> {{ data.created_date }} </td>
-                          <td data-label="Wartość"> {{ data.value }} </td>
-                          <td class="responsive-length" data-label="Akcje"> 
-                            <a href="{% url 'collected-data-update' pk=data.pk %}">
+                          <td data-label="ID"> {{ key.pk }} </td>
+                          <td data-label="Nazwa"> {{ key.name }} </td>
+                          <td data-label="Klucz"> {{ key.key }} </td>
+                          <td data-label="Czy aktywny?"> {{ key.is_active }} </td>
+                          <td data-label="Aktywny do:"> {{ key.expired_at }} </td>         
+                          <td data-label="Akcje">
+                            <a href="{% url 'api-key-update' pk=key.pk %}">
                               <span class="icon-bg">
                                 <i class="mdi mdi-lead-pencil" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
                               </span>
                             </a>
-                            <a href="{% url 'collected-data-delete' pk=data.pk %}">
+                            <a href="{% url 'api-key-delete' pk=key.pk %}">
                               <span class="icon-bg">
                                 <i class="mdi mdi-delete" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
                               </span>
                             </a>
-                          </td>
+                          </td>               
                       </tr>
                   {% endfor %}
                 </tbody>

@@ -13,6 +13,7 @@ class Website(BaseModel):
     url = models.CharField(max_length=250)
     description = models.CharField(max_length=250)
     is_ready = models.BooleanField(default=False)
+    is_simplified = models.BooleanField(default=False)
     folder = models.ForeignKey(to=Folder, on_delete=models.CASCADE, null=True)
 
     def __str__(self) -> str:
