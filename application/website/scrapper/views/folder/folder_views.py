@@ -17,12 +17,16 @@ class FoldersList(LoginRequiredMixin, ListView):
     def get_queryset(self):
         folders = []
         for folder in Folder.objects.filter(user_id=self.request.user.id):
-            next_scraping_date = Interval.find_next_scraping_date(folder.last_scraping, folder.scraping_interval)
+            last_date = folder.last_scraping
+            next_date = Interval.find_next_scraping_date(folder.last_scraping, folder.scraping_interval)
+            if folder.last_scraping:
+                last_date = last_date + timedelta(hours=2)
+                next_date = next_date + timedelta(hours=2)
             folder.sites = Website.objects.filter(folder_id=folder.id).count()
             folder.is_ready = Translator.is_ready_to_pl(folder.is_ready)
             folder.scraping_interval = Translator.interval_to_pl(folder.scraping_interval)
-            folder.last_scraping = Translator.scraping_date_to_pl(folder.last_scraping + timedelta(hours=2))
-            folder.next_scraping = Translator.scraping_date_to_pl(next_scraping_date + timedelta(hours=2))
+            folder.last_scraping = Translator.scraping_date_to_pl(last_date)
+            folder.next_scraping = Translator.scraping_date_to_pl(next_date)
             folders.append(folder)
         return folders
 

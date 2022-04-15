@@ -24,7 +24,7 @@ SECRET_KEY = "%tvdn&f2wahsz&gapfjnn84w=h_%%$32zu4-n+ayr^a)@wjwyx"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "localhost", "172.16.11.11"]
+ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "localhost", "172.16.11.11", "192.168.8.102"]
 
 MEDIA_VIEW_URL = "/tmp/files/"
 
@@ -175,3 +175,11 @@ LOGGING = {
 
 ANONYMOUS_USER_NAME = None
 APP_LABEL = "scrapper"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'noreply.scrapperhub@gmail.com'
+EMAIL_HOST_PASSWORD = 'saetndlufshykbvj'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'noreply.scrapperhub@gmail.com'

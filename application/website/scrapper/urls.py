@@ -23,16 +23,21 @@ from graphene_file_upload.django import FileUploadGraphQLView
 from scheduler.views import scheduler
 from scrapper.views.basic_views import (
     DashboardView,
-    AboutView,
     MissionView,
-    AuthorView,
+    AnnouncementsView,
     ContactView,
     ProcessView,
     PrivateDashboardView,
+    SuccessView,
 )
 from scrapper.views.auth.auth_views import (
     LoginView,
     RegisterView,
+    ActivationView,
+    AccountDelete,
+    PasswordUpdate,
+    ResetPassowrd,
+    ResetPassowrdConfirm,
 )
 
 from scrapper.views.folder.folder_views import (
@@ -84,14 +89,20 @@ urlpatterns = [
     path("", DashboardView.as_view(), name="dashboard"),
     path("dashboard/", PrivateDashboardView.as_view(), name="private_dashboard"),
     path("accounts/", include("django.contrib.auth.urls")),
-    path("about/", AboutView.as_view(), name="about"),
     path("mission/", MissionView.as_view(), name="mission"),
-    path("author/", AuthorView.as_view(), name="author"),
+    path("announcements/", AnnouncementsView.as_view(), name="announcements"),
     path("contact/", ContactView.as_view(), name="contact"),
     path("process/", ProcessView.as_view(), name="process"),
+
     path("login/", LoginView.as_view(), name="login"),
     path("register/", RegisterView.as_view(), name="register"),
-    
+    path("activate/", ActivationView.as_view(), name="activation"),
+    path("delete/<int:pk>/", AccountDelete.as_view(), name="delete"),
+    path("change_password/<int:pk>/", PasswordUpdate.as_view(), name="change_password"),
+    path("reset_password/", ResetPassowrd.as_view(), name="reset_password"),
+    path("reset_password_confirm/<str:token>/", ResetPassowrdConfirm.as_view(), name="reset_password_confirm"),
+    path("success/", SuccessView.as_view(), name="success"),
+
     path("folders/", FoldersList.as_view(), name="folders"),
     path("folders/add/", FolderCreate.as_view(), name="folders-add"),
     path("folders/update/<int:pk>/", FolderUpdate.as_view(), name="folders-update"),

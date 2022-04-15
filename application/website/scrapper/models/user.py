@@ -14,6 +14,7 @@ class User(AbstractUser, GrapheneMixin):
     username = models.CharField(max_length=150)
     email = models.EmailField(_("email address"), unique=True, blank=True)
     is_active = models.BooleanField(default=False)
+    verification_pin = models.CharField(max_length=6)
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
 
