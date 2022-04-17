@@ -16,7 +16,7 @@ from scrapper.gui_preview import GUIPreview
 class SelectorsList(LoginRequiredMixin, ListView):
     model = Selector
     template_name = "scrapper/selector/selectors_list.html"
-    paginate_by = 20
+    paginate_by = 10
     ordering = ['pk']
 
     def get_queryset(self):

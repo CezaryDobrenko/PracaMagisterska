@@ -83,17 +83,24 @@ from scrapper.views.api_key.api_views import (
     ApiKeyClear,
     ApiKeyUpdate
 )
+from scrapper.views.news.news_views import (
+    NewsList,
+    NewsClear
+)
 
 
 urlpatterns = [
+
+    #Public views
     path("", DashboardView.as_view(), name="dashboard"),
     path("dashboard/", PrivateDashboardView.as_view(), name="private_dashboard"),
-    path("accounts/", include("django.contrib.auth.urls")),
     path("mission/", MissionView.as_view(), name="mission"),
     path("announcements/", AnnouncementsView.as_view(), name="announcements"),
     path("contact/", ContactView.as_view(), name="contact"),
     path("process/", ProcessView.as_view(), name="process"),
 
+    #Auth views
+    path("accounts/", include("django.contrib.auth.urls")),
     path("login/", LoginView.as_view(), name="login"),
     path("register/", RegisterView.as_view(), name="register"),
     path("activate/", ActivationView.as_view(), name="activation"),
@@ -103,11 +110,18 @@ urlpatterns = [
     path("reset_password_confirm/<str:token>/", ResetPassowrdConfirm.as_view(), name="reset_password_confirm"),
     path("success/", SuccessView.as_view(), name="success"),
 
+    #News views
+    path("news/", NewsList.as_view(), name="news"),
+    path("news/clear/<int:pk>/", NewsClear.as_view(), name="news-clear"),
+
+
+    #Folder views
     path("folders/", FoldersList.as_view(), name="folders"),
     path("folders/add/", FolderCreate.as_view(), name="folders-add"),
     path("folders/update/<int:pk>/", FolderUpdate.as_view(), name="folders-update"),
     path("folders/delete/<int:pk>/", FoldersDelete.as_view(), name="folders-delete"),
 
+    #Website views
     path("websites/", AllWebsitesList.as_view(), name="websites"),
     path("websites/<int:pk>/", WebsitesList.as_view(), name="websites-settings"),
     path("websites/add/<int:pk>/", WebsiteCreate.as_view(), name="websites-add"),
@@ -115,6 +129,7 @@ urlpatterns = [
     path("websites/delete/<int:pk>/", WebsitesDelete.as_view(), name="websites-delete"),
     path("websites/clear/<int:pk>/", WebsitesClear.as_view(), name="websites-clear"),
 
+    #Selector views
     path("selectors/<int:pk>/", SelectorsList.as_view(), name="selectors-list",),
     path("selectors/add/<int:pk>/", SelectorsCreate.as_view(), name="selectors-add",),
     path("selectors/add_gui/<int:pk>/", SelectorsCreateGUI.as_view(), name="selectors-add-gui"),
@@ -123,23 +138,27 @@ urlpatterns = [
     path("selectors/update/<int:pk>/", SelectorsUpdate.as_view(), name="selectors-update"),
     path("selectors/approve/<int:pk>/", SelectorsApprove.as_view(), name="selectors_approve"),
 
+    #Collected data views
     path("collected_data/<int:pk>/", CollectedDataList.as_view(), name="collected-data-list",),
     path("collected_data/delete/<int:pk>/", CollectedDataDelete.as_view(), name="collected-data-delete"),
     path("collected_data/update/<int:pk>/", CollectedDataUpdate.as_view(), name="collected-data-update"),
     path("collected_data/clear/<int:pk>/", CollectedDataClear.as_view(), name="collected-data-clear"),
 
+    #Export views
     path("export/list/", ExportList.as_view(), name="export-list"),
     path("export/json/<int:pk>", ExportJSON.as_view(), name="export-json"),
     path("export/txt/<int:pk>", ExportTXT.as_view(), name="export-txt"),
     path("export/xml/<int:pk>", ExportXML.as_view(), name="export-xml"),
     path("export/csv/<int:pk>", ExportCSV.as_view(), name="export-csv"),
 
+    #API keys views
     path("api_keys/list/", ApiKeyList.as_view(), name="api-key-list"),
     path("api_keys/add/", ApiKeyCreate.as_view(), name="api-key-add"),
     path("api_keys/delete/<int:pk>", ApiKeyDelete.as_view(), name="api-key-delete"),
     path("api_keys/update/<int:pk>", ApiKeyUpdate.as_view(), name="api-key-update"),
     path("api_keys/clear/", ApiKeyClear.as_view(), name="api-key-clear"),
 
+    #General views
     path("admin/", admin.site.urls),
     path("graphql/", csrf_exempt(FileUploadGraphQLView.as_view(graphiql=True))),
     path("scheduler/<interval>", scheduler, name="scheduler"),

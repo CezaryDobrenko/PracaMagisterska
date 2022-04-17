@@ -5,13 +5,13 @@ from scrapper.models.selectors import Selector
 from scrapper.models.folder import Folder
 from scrapper.translations.language_pl import Translator
 from .website_forms import WebsiteCreateForm, WebsiteUpdateForm, WebsiteClearForm
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse
 
 
 class WebsitesList(LoginRequiredMixin, ListView):
     model = Website
     template_name = "scrapper/website/webistes_list.html"
-    paginate_by = 20
+    paginate_by = 10
     ordering = ['pk']
 
     def get_queryset(self):
@@ -33,7 +33,7 @@ class WebsitesList(LoginRequiredMixin, ListView):
 class AllWebsitesList(LoginRequiredMixin, ListView):
     model = Website
     template_name = "scrapper/website/all_webistes_list.html"
-    paginate_by = 20
+    paginate_by = 10
     ordering = ['pk']
 
     def get_queryset(self):

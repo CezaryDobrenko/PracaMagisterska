@@ -25,14 +25,15 @@ def calculate_new_scrape_date(last_scraping, interval):
 
 def scheduler(request, interval: str) -> HttpResponse:
     for folder in Folder.objects.filter(is_ready=True):
-        is_valid, new_date = calculate_new_scrape_date(
-            folder.last_scraping, folder.scraping_interval
-        )
-        if is_valid:
-            folder.update_last_scraping(new_date)
-            try:
+        try:
+            is_valid, new_date = calculate_new_scrape_date(
+                folder.last_scraping, folder.scraping_interval
+            )
+            if is_valid:
+                folder.update_last_scraping(new_date)
                 if websites := Website.objects.filter(folder_id=folder.id, is_ready=True):
                     for website in websites:
+                        is_new_data_collected = False
                         if selectors := Selector.objects.filter(website_id=website.id):
                             scrapper = Scrapper(website.url)
                             for selector in selectors:
@@ -42,10 +43,14 @@ def scheduler(request, interval: str) -> HttpResponse:
                                     website.is_simplified
                                 )
                                 for item in data:
-                                    CollectedData.objects.get_or_create(
+                                    _, created = CollectedData.objects.get_or_create(
                                         value=item,
                                         selector=selector
                                     )
-            except:
-                pass
+                                    if created:
+                                        is_new_data_collected = True
+                        if is_new_data_collected:
+                            website.update_is_new_data_collected(is_new_data_collected)
+        except:
+            pass
     return HttpResponse("Data has been scrapped")

@@ -36,9 +36,25 @@ class Scrapper:
             parsed_results.append(json_parsed)
         return parsed_results
 
+    def __get_custom_selectors(self, cusotm_selector):
+        if cusotm_selector == "list":
+            return ["li"]
+        if cusotm_selector == "headline":
+            return ["h1","h2","h3","h4","h5","h6"]
+        if cusotm_selector == "table":
+            return ["th","td"]
+        return []
+
     def scrape_website(self, selector_type, selector_value, is_simplified):
         if selector_type == "tag":
-            results = self.soup.findAll(selector_value)
+            if selector_value in ["list", "headline", "table"]:
+                selectors = self.__get_custom_selectors(selector_value)
+                results = []
+                for selector in selectors:
+                    result = self.soup.findAll(selector)
+                    results = results + result
+            else:
+                results = self.soup.findAll(selector_value)
         else:
             results = self.soup.find_all(True,{selector_type:selector_value})
         if is_simplified:

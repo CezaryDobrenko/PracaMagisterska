@@ -3,6 +3,7 @@
 {% block custom_styles %}
   {% load static %}
   <link rel="stylesheet" href="{% static 'assets/css/style_responsive_table.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/style_custom_buttons.css' %}">
 {% endblock %}
 {% block content %}
 <div class="row">       
@@ -46,7 +47,7 @@
           <i class="mdi mdi-check icon-md d-flex align-self-end mr-3"></i>
           <div class="media-body">
             <p class="card-text" style="color: black;">
-              Sprawdź czy wszystkie dane zostały podane prawidłowo. 
+              Sprawdź, czy wszystkie dane zostały podane poprawnie. 
               Następnie przejdź do widoku folderów i dokończ proces zbierania danych.
             </p>
           </div>
@@ -128,6 +129,7 @@
                 </tbody>
               </table>
         </div>
+        {% include "pagination.html" %}
       </div>
     </div>
   </div>

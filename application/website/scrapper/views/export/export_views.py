@@ -9,7 +9,7 @@ from scrapper.export import Export
 class ExportList(LoginRequiredMixin, ListView):
     model = Folder
     template_name = "scrapper/export/export_list.html"
-    paginate_by = 20
+    paginate_by = 10
     ordering = ['pk']
 
     def get_queryset(self):

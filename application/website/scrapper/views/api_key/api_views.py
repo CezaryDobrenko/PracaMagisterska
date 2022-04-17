@@ -10,7 +10,7 @@ from datetime import datetime
 class ApiKeyList(LoginRequiredMixin, ListView):
     model = ApiKey
     template_name = "scrapper/api_keys/api_list.html"
-    paginate_by = 20
+    paginate_by = 10
     ordering = ['pk']
 
     def get_queryset(self):

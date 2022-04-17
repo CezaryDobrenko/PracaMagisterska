@@ -4,17 +4,22 @@ from scrapper.models.collected_data import CollectedData
 from scrapper.models.selectors import Selector
 from django.urls import reverse
 from .data_forms import CollectedDataClearForm, CollectedDataUpdateForm
+from scrapper.translations.language_pl import Translator
 
 
 class CollectedDataList(LoginRequiredMixin, ListView):
     model = CollectedData
     template_name = "scrapper/collected_data/data_list.html"
-    paginate_by = 100
+    paginate_by = 10
     ordering = ['pk']
 
     def get_queryset(self):
         selector_id = self.request.resolver_match.kwargs.get("pk")
-        return CollectedData.objects.filter(selector_id=selector_id)
+        collected_data = []
+        for element in CollectedData.objects.filter(selector_id=selector_id):
+            element.created_date = Translator.scraping_date_to_pl(element.created_date)
+            collected_data.append(element)
+        return collected_data
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -49,7 +49,11 @@
 }
 
 .responsive-length{
-    width: 50px;
+    width: 150px;
+}
+
+.table td{
+    white-space: normal;
 }
 
 @media screen and (max-width: 730px) {

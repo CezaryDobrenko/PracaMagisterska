@@ -18,6 +18,7 @@ class Folder(BaseModel):
     )
     last_scraping = models.DateTimeField(default=None, null=True)
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True)
+    
 
     def update_last_scraping(self, scrape_date):
         self.last_scraping = scrape_date

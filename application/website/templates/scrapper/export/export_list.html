@@ -3,6 +3,7 @@
 {% block custom_styles %}
   {% load static %}
   <link rel="stylesheet" href="{% static 'assets/css/style_responsive_table.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/style_custom_buttons.css' %}">
 {% endblock %}
 {% block content %}
 <div class="col-lg-12 grid-margin stretch-card">
@@ -65,6 +66,7 @@
                 </tbody>
             </table>
         </div>
+        {% include "pagination.html" %}
       </div>
     </div>
   </div>

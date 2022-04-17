@@ -11,7 +11,7 @@ from datetime import timedelta
 class FoldersList(LoginRequiredMixin, ListView):
     model = Folder
     template_name = "scrapper/folder/folders_list.html"
-    paginate_by = 20
+    paginate_by = 10
     ordering = ['pk']
 
     def get_queryset(self):

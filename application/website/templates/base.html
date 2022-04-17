@@ -124,42 +124,49 @@
 
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'private_dashboard' %}">
-                    <span class="icon-bg"><i class="mdi mdi-format-list-bulleted menu-icon"></i></span>
+                    <span class="icon-bg"><i class="mdi mdi-view-dashboard menu-icon"></i></span>
                     <span class="menu-title">Panel główny</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link" href="{% url 'news' %}">
+                    <span class="icon-bg"><i class="mdi mdi-alert-box menu-icon"></i></span>
+                    <span class="menu-title">Powiadomienia </span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'folders' %}">
-                    <span class="icon-bg"><i class="mdi mdi-clipboard-text menu-icon"></i></span>
+                    <span class="icon-bg"><i class="mdi mdi-folder-plus menu-icon"></i></span>
                     <span class="menu-title">Kreator </span>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'websites' %}">
-                    <span class="icon-bg"><i class="mdi mdi-chart-areaspline menu-icon"></i></span>
+                    <span class="icon-bg"><i class="mdi mdi-earth menu-icon"></i></span>
                     <span class="menu-title">Strony WWW</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'export-list' %}">
-                    <span class="icon-bg"><i class="mdi mdi-chart-areaspline menu-icon"></i></span>
+                    <span class="icon-bg"><i class="mdi mdi-export menu-icon"></i></span>
                     <span class="menu-title">Eksport danych</span>
                     </a>
                 </li>
                 
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'api-key-list' %}">
-                    <span class="icon-bg"><i class="mdi mdi-chart-areaspline menu-icon"></i></span>
+                    <span class="icon-bg"><i class="mdi mdi-key-variant menu-icon"></i></span>
                     <span class="menu-title">Klucze API</span>
                     </a>
                 </li>
                 
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                      <span class="icon-bg"><i class="mdi mdi-crosshairs-gps menu-icon"></i></span>
+                      <span class="icon-bg"><i class="mdi mdi-account menu-icon"></i></span>
                       <span class="menu-title">Konto</span>
                       <i class="menu-arrow"></i>
                     </a>
@@ -167,14 +174,14 @@
                       <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'change_password' pk=user.id %}">
-                            <span class="icon-bg"><i class="mdi mdi-chart-areaspline menu-icon"></i></span>
+                            <span class="icon-bg"><i class="mdi mdi-key-change menu-icon"></i></span>
                             <span class="menu-title">Zmień hasło</span>
                             </a>
                         </li>
                         
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'delete' pk=user.id %}">
-                                <span class="icon-bg"><i class="mdi mdi-chart-areaspline menu-icon"></i></span>
+                                <span class="icon-bg"><i class="mdi mdi-delete-forever menu-icon"></i></span>
                                 <span class="menu-title">Usuń konto</span>
                             </a>
                         </li>
