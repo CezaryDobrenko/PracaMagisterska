@@ -3,6 +3,7 @@ from django.views.generic import FormView
 from .timezone_forms import ChangeTimezoneForm
 from django.urls import reverse_lazy
 from scrapper.models.timezone import Timezone
+from scrapper.models.user import User
 
 class ChangeTimezone(LoginRequiredMixin, FormView):
     form_class = ChangeTimezoneForm
@@ -16,6 +17,9 @@ class ChangeTimezone(LoginRequiredMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        user_id = self.request.user.id
+        user = User.objects.get(id=user_id)
         timezones = Timezone.objects.all()
         context["timezones"] = timezones
+        context["current_timezone"] = user.timezone
         return context

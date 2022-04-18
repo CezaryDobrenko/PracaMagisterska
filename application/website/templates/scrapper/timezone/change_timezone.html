@@ -11,7 +11,19 @@
             <label class="label" for="id_timezone" style="color: black; font-size: 14px;">Wybierz strefę czasową</label>
             <select name="timezone" class="form-control" id="id_timezone" style="font-size: 13px;">
                 {% for timezone in timezones %}
-                    <option value="{{timezone.id}}" selected="" style="font-size: 13px;">{{timezone.name}} -> {{timezone.value}}</option>
+                    {% if timezone.id == current_timezone.id %}
+                        {% if timezone.value > 0 %}
+                            <option value="{{timezone.id}}" selected style="font-size: 13px;">{{timezone.name}} -> UTC +{{timezone.value}}</option>
+                        {% else %}
+                            <option value="{{timezone.id}}" selected style="font-size: 13px;">{{timezone.name}} -> UTC {{timezone.value}}</option>
+                        {% endif %}
+                    {% else %}
+                        {% if timezone.value > 0 %}
+                            <option value="{{timezone.id}}" style="font-size: 13px;">{{timezone.name}} -> UTC +{{timezone.value}}</option>
+                        {% else %}
+                            <option value="{{timezone.id}}" style="font-size: 13px;">{{timezone.name}} -> UTC {{timezone.value}}</option>
+                        {% endif %}
+                    {% endif %}
                 {% endfor %}
             </select>     
         </div>

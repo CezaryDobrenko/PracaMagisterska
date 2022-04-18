@@ -172,6 +172,14 @@
                     </a>
                     <div class="collapse" id="ui-basic">
                       <ul class="nav flex-column sub-menu">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'change_timezone' pk=user.pk %}">
+                            <span class="icon-bg"><i class="mdi mdi-timer menu-icon"></i></span>
+                            <span class="menu-title">Strefa czasowa</span>
+                            </a>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'change_password' pk=user.id %}">
                             <span class="icon-bg"><i class="mdi mdi-key-change menu-icon"></i></span>
@@ -185,6 +193,7 @@
                                 <span class="menu-title">Usuń konto</span>
                             </a>
                         </li>
+                        
                       </ul>
                     </div>
                 </li>
