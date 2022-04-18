@@ -1,13 +1,10 @@
 import graphene
-import graphql_jwt
 
-from scrapper.graphql.mutations.user import UserMutation
+from scrapper.graphql.mutations.mutations import CustomMutation
 
 
 class Mutation(
-    UserMutation,
+    CustomMutation,
     graphene.ObjectType,
 ):
-    token_auth = graphql_jwt.ObtainJSONWebToken.Field()
-    verify_token = graphql_jwt.Verify.Field()
-    refresh_token = graphql_jwt.Refresh.Field()
+    pass
