@@ -92,27 +92,40 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for key in object_list %}
-                      <tr style="margin-bottom:40px;">
-                          <td data-label="ID"> {{ key.pk }} </td>
-                          <td data-label="Nazwa"> {{ key.name }} </td>
-                          <td data-label="Klucz"> {{ key.key }} </td>
-                          <td data-label="Czy aktywny?"> {{ key.is_active }} </td>
-                          <td data-label="Aktywny do:"> {{ key.expired_at }} </td>         
-                          <td data-label="Akcje">
-                            <a href="{% url 'api-key-update' pk=key.pk %}">
-                              <span class="icon-bg">
-                                <i class="mdi mdi-lead-pencil" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
-                              </span>
-                            </a>
-                            <a href="{% url 'api-key-delete' pk=key.pk %}">
-                              <span class="icon-bg">
-                                <i class="mdi mdi-delete" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
-                              </span>
-                            </a>
-                          </td>               
-                      </tr>
-                  {% endfor %}
+                  {% if object_list %}
+                    {% for key in object_list %}
+                        <tr style="margin-bottom:40px;">
+                            <td data-label="ID"> {{ key.pk }} </td>
+                            <td data-label="Nazwa"> {{ key.name }} </td>
+                            <td data-label="Klucz"> {{ key.key }} </td>
+                            <td data-label="Czy aktywny?"> {{ key.is_active }} </td>
+                            <td data-label="Aktywny do:"> {{ key.expired_at }} </td>         
+                            <td data-label="Akcje">
+                              <a href="{% url 'api-key-update' pk=key.pk %}">
+                                <span class="icon-bg">
+                                  <i class="mdi mdi-lead-pencil" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
+                                </span>
+                              </a>
+                              <a href="{% url 'api-key-delete' pk=key.pk %}">
+                                <span class="icon-bg">
+                                  <i class="mdi mdi-delete" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
+                                </span>
+                              </a>
+                            </td>               
+                        </tr>
+                    {% endfor %}
+                  {% else %}
+                  <tr>
+                    <td>
+                      Brak kluczy API
+                    </td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  {% endif %}
                 </tbody>
               </table>
         </div>

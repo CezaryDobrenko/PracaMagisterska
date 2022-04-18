@@ -107,35 +107,49 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for selector in object_list %}
-                      <tr style="margin-bottom:40px;">
-                          <td data-label="ID"> {{ selector.pk }} </td>
-                          <td data-label="Typ"> {{ selector.type }} </td>
-                          <td data-label="Wartość"> {{ selector.value }} </td>
-                          <td data-label="Opis"> {{ selector.description }} </td>
-                          <td data-label="Ilość danych"> {{ selector.data_count }} </td>
-                          <td data-label="Zebrane dane"> 
-                            <a href="{% url 'collected-data-list' pk=selector.pk %}">
-                              <span class="icon-bg">
-                                <i class="mdi mdi-magnify" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
-                                <b>Podgląd</b>
-                              </span>
-                            </a>
-                          </td>
-                          <td class="responsive-length" data-label="Akcje"> 
-                              <a href="{% url 'selectors-update' pk=selector.pk %}">
+                  {% if object_list %}
+                    {% for selector in object_list %}
+                        <tr style="margin-bottom:40px;">
+                            <td data-label="ID"> {{ selector.pk }} </td>
+                            <td data-label="Typ"> {{ selector.type }} </td>
+                            <td data-label="Wartość"> {{ selector.value }} </td>
+                            <td data-label="Opis"> {{ selector.description }} </td>
+                            <td data-label="Ilość danych"> {{ selector.data_count }} </td>
+                            <td data-label="Zebrane dane"> 
+                              <a href="{% url 'collected-data-list' pk=selector.pk %}">
                                 <span class="icon-bg">
-                                  <i class="mdi mdi-lead-pencil" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
+                                  <i class="mdi mdi-magnify" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
+                                  <b>Podgląd</b>
                                 </span>
                               </a>
-                              <a href="{% url 'selectors-delete' pk=selector.pk %}">
-                                <span class="icon-bg">
-                                  <i class="mdi mdi-delete" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
-                                </span>
-                              </a>
-                          </td>
-                      </tr>
-                  {% endfor %}
+                            </td>
+                            <td class="responsive-length" data-label="Akcje"> 
+                                <a href="{% url 'selectors-update' pk=selector.pk %}">
+                                  <span class="icon-bg">
+                                    <i class="mdi mdi-lead-pencil" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
+                                  </span>
+                                </a>
+                                <a href="{% url 'selectors-delete' pk=selector.pk %}">
+                                  <span class="icon-bg">
+                                    <i class="mdi mdi-delete" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
+                                  </span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                  {% else %}
+                  <tr>
+                    <td>
+                      Brak selektorów
+                    </td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  {% endif %}
                 </tbody>
               </table>
         </div>

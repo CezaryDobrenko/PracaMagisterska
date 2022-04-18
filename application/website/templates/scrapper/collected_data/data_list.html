@@ -90,25 +90,36 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for data in object_list %}
-                      <tr style="margin-bottom:40px;">
-                          <td data-label="ID"> {{ data.pk }} </td>
-                          <td data-label="Data utw."> {{ data.created_date }} </td>
-                          <td data-label="Wartość"> {{ data.value }} </td>
-                          <td class="responsive-length" data-label="Akcje"> 
-                            <a href="{% url 'collected-data-update' pk=data.pk %}">
-                              <span class="icon-bg">
-                                <i class="mdi mdi-lead-pencil" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
-                              </span>
-                            </a>
-                            <a href="{% url 'collected-data-delete' pk=data.pk %}">
-                              <span class="icon-bg">
-                                <i class="mdi mdi-delete" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
-                              </span>
-                            </a>
-                          </td>
-                      </tr>
-                  {% endfor %}
+                  {% if object_list %}
+                    {% for data in object_list %}
+                        <tr style="margin-bottom:40px;">
+                            <td data-label="ID"> {{ data.pk }} </td>
+                            <td data-label="Data utw."> {{ data.created_date }} </td>
+                            <td data-label="Wartość"> {{ data.value }} </td>
+                            <td class="responsive-length" data-label="Akcje"> 
+                              <a href="{% url 'collected-data-update' pk=data.pk %}">
+                                <span class="icon-bg">
+                                  <i class="mdi mdi-lead-pencil" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
+                                </span>
+                              </a>
+                              <a href="{% url 'collected-data-delete' pk=data.pk %}">
+                                <span class="icon-bg">
+                                  <i class="mdi mdi-delete" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
+                                </span>
+                              </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                  {% else %}
+                  <tr>
+                    <td>
+                      Brak pobranych danych
+                    </td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  {% endif %}
                 </tbody>
               </table>
         </div>

@@ -11,6 +11,15 @@ class NewsList(LoginRequiredMixin, ListView):
     paginate_by = 10
     ordering = ['pk']
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        warinings = []
+        for folder in Folder.objects.filter(user_id=self.request.user.id):
+            for website in Website.objects.filter(folder_id=folder.id, is_valid_with_robots=False):
+                warinings.append(website)
+        context["warnings"] = warinings
+        return context
+
     def get_queryset(self):
         websites = []
         for folder in Folder.objects.filter(user_id=self.request.user.id, is_ready=True):

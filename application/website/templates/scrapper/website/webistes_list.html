@@ -99,33 +99,54 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for website in object_list %}
-                      <tr style="margin-bottom:40px;">
-                          <td data-label="ID"> {{ website.pk }} </td>
-                          <td data-label="Adres WWW"> {{ website.url }} </td>
-                          <td data-label="Opis"> {{ website.description }} </td>
-                          <td data-label="Czy aktywny"> {{ website.is_ready }} </td>
-                          <td data-label="Czy JSON"> {{ website.is_simplified }} </td>
-                          <td data-label="Ilość selektorów"> {{ website.selectors }} </td>
-                          <td class="responsive-length" data-label="Akcje"> 
-                              <a href="{% url 'selectors-list' pk=website.pk %}">
-                                <span class="icon-bg">
-                                  <i class="mdi mdi-settings" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
-                                </span>
+                  {% if object_list %}
+                    {% for website in object_list %}
+                        <tr style="margin-bottom:40px;">
+                            <td data-label="ID"> {{ website.pk }} </td>
+                            <td data-label="Adres WWW"> 
+                              {% if website.is_valid_with_robots == False %}
+                                <i class="mdi mdi-alert" style="margin-left: 10px; font-size: 25px; color: #0062ff;" 
+                                title="Wybrana strona została zabroniona dla procesu pobierania danych przez plik robots.txt! Pobieranie danych z tej strony jest dalej możliwe, ale prosimy o rozważenie usunięcia jej z procesu pobierania danych.">
+                                </i>
+                              {% endif %}
+                              {{ website.url }} 
+                            </td>
+                            <td data-label="Opis"> {{ website.description }} </td>
+                            <td data-label="Czy aktywny"> {{ website.is_ready }} </td>
+                            <td data-label="Czy JSON"> {{ website.is_simplified }} </td>
+                            <td data-label="Ilość selektorów"> {{ website.selectors }} </td>
+                            <td class="responsive-length" data-label="Akcje"> 
+                                <a href="{% url 'selectors-list' pk=website.pk %}">
+                                  <span class="icon-bg">
+                                    <i class="mdi mdi-settings" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
+                                  </span>
+                                </a>
+                                <a href="{% url 'websites-update' pk=website.pk %}">
+                                  <span class="icon-bg">
+                                    <i class="mdi mdi-lead-pencil" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
+                                  </span>
                               </a>
-                              <a href="{% url 'websites-update' pk=website.pk %}">
-                                <span class="icon-bg">
-                                  <i class="mdi mdi-lead-pencil" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
-                                </span>
-                            </a>
-                              <a href="{% url 'websites-delete' pk=website.pk %}">
-                                <span class="icon-bg">
-                                  <i class="mdi mdi-delete" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
-                                </span>
-                            </a>
-                          </td>
-                      </tr>
-                  {% endfor %}
+                                <a href="{% url 'websites-delete' pk=website.pk %}">
+                                  <span class="icon-bg">
+                                    <i class="mdi mdi-delete" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
+                                  </span>
+                              </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                  {% else %}
+                  <tr>
+                    <td>
+                      Brak stron internetowych
+                    </td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  {% endif %}
                 </tbody>
               </table>
         </div>

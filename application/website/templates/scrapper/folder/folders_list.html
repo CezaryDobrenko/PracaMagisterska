@@ -89,56 +89,71 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for folder in object_list %}
-                        <tr style="margin-bottom:40px;">
-                          <td data-label="ID"> {{ folder.pk }} </td>
-                          <td data-label="Nazwa"> {{ folder.name }} </td>
-                          <td data-label="Czy aktywny"> {{ folder.is_ready }} </td>
-                          <td data-label="Ilość stron www"> {{ folder.sites }} </td>
-                          <td data-label="Interwał wykonania"> {{ folder.scraping_interval }} </td>
-                          <td data-label="Data ost."> 
-                            {% if folder.is_ready == "Tak" %}
-                              {% if folder.last_scraping %}
-                                {{ folder.last_scraping }}
+                  {% if object_list %}
+                    {% for folder in object_list %}
+                          <tr style="margin-bottom:40px;">
+                            <td data-label="ID"> {{ folder.pk }} </td>
+                            <td data-label="Nazwa"> {{ folder.name }} </td>
+                            <td data-label="Czy aktywny"> {{ folder.is_ready }} </td>
+                            <td data-label="Ilość stron www"> {{ folder.sites }} </td>
+                            <td data-label="Interwał wykonania"> {{ folder.scraping_interval }} </td>
+                            <td data-label="Data ost."> 
+                              {% if folder.is_ready == "Tak" %}
+                                {% if folder.last_scraping %}
+                                  {{ folder.last_scraping }}
+                                {% else %}
+                                  Oczekiwanie na następny cykl
+                                {% endif %}
                               {% else %}
-                                Oczekiwanie na następny cykl
+                                Proces jest obecnie wyłączony
                               {% endif %}
-                            {% else %}
-                              Proces jest obecnie wyłączony
-                            {% endif %}
-                          </td>
-                          <td data-label="Data nst."> 
-                            {% if folder.is_ready == "Tak" %}
-                              {% if folder.next_scraping %}
-                                {{ folder.next_scraping }}
+                            </td>
+                            <td data-label="Data nst."> 
+                              {% if folder.is_ready == "Tak" %}
+                                {% if folder.next_scraping %}
+                                  {{ folder.next_scraping }}
+                                {% else %}
+                                  Oczekiwanie na następny cykl
+                                {% endif %}
                               {% else %}
-                                Oczekiwanie na następny cykl
+                                Proces jest obecnie wyłączony
                               {% endif %}
-                            {% else %}
-                              Proces jest obecnie wyłączony
-                            {% endif %}
-                          </td>
-                          <td class="responsive-length" data-label="Akcje"> 
-                            <a href="{% url 'websites-settings' pk=folder.pk %}">
-                              <span class="icon-bg">
-                                <i class="mdi mdi-settings" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
-                              </span>
-                            </a>
+                            </td>
+                            <td class="responsive-length" data-label="Akcje"> 
+                              <a href="{% url 'websites-settings' pk=folder.pk %}">
+                                <span class="icon-bg">
+                                  <i class="mdi mdi-settings" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
+                                </span>
+                              </a>
 
-                            <a href="{% url 'folders-update' pk=folder.pk %}">
-                              <span class="icon-bg">
-                                <i class="mdi mdi-lead-pencil" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
-                              </span>
-                            </a>
+                              <a href="{% url 'folders-update' pk=folder.pk %}">
+                                <span class="icon-bg">
+                                  <i class="mdi mdi-lead-pencil" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
+                                </span>
+                              </a>
 
-                            <a href="{% url 'folders-delete' pk=folder.pk %}">
-                              <span class="icon-bg">
-                                <i class="mdi mdi-delete" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
-                              </span>
-                            </a>
-                          </td>
-                      </tr>
-                  {% endfor %}
+                              <a href="{% url 'folders-delete' pk=folder.pk %}">
+                                <span class="icon-bg">
+                                  <i class="mdi mdi-delete" style="margin-left: 10px; font-size: 25px; color: #0062ff;"></i>
+                                </span>
+                              </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                  {% else %}
+                  <tr>
+                    <td>
+                      Brak folderów
+                    </td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  {% endif %}
                 </tbody>
               </table>
         </div>

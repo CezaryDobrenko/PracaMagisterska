@@ -90,8 +90,8 @@ class WebsiteUpdate(LoginRequiredMixin, UpdateView):
     template_name = "scrapper/website/websites_update.html"
 
     def form_valid(self, form):
-        folder_id = self.request.resolver_match.kwargs.get("pk")
-        form.cleaned_data["folder_id"] = folder_id
+        id = self.request.resolver_match.kwargs.get("pk")
+        form.test = id
         form.save()
         return super().form_valid(form)
 

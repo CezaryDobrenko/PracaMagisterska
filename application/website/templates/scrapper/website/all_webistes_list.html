@@ -25,30 +25,51 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for website in object_list %}
-                      <tr style="margin-bottom:40px;">
-                          <td data-label="ID"> {{ website.pk }} </td>
-                          <td data-label="Adres WWW"> {{ website.url }} </td>
-                          <td data-label="Opis"> {{ website.description }} </td>
-                          <td data-label="Czy aktywny"> {{ website.is_ready }} </td>
-                          <td data-label="Folder">
-                            <a href="{% url 'websites-settings' pk=website.folder_id %}">
-                              <span class="icon-bg">
-                                <i class="mdi mdi-folder" style="font-size: 25px; color: #0062ff;"></i>
-                                <span style="color: black;">Przejdź do folderu</span>
-                              </span>
-                            </a>
-                          </td>
-                          <td data-label="Konfiguracja">
-                            <a href="{% url 'selectors-list' pk=website.pk %}">
-                              <span class="icon-bg">
-                                <i class="mdi mdi-settings" style="font-size: 25px; color: #0062ff;"></i>
-                                <span style="color: black;">Przejdź do konfiguracji</span>
-                              </span>
-                            </a>
-                          </td>
-                      </tr>
-                  {% endfor %}
+                  {% if object_list %}
+                    {% for website in object_list %}
+                        <tr style="margin-bottom:40px;">
+                            <td data-label="ID"> {{ website.pk }} </td>
+                            <td data-label="Adres WWW"> 
+                              {% if website.is_valid_with_robots == False %}
+                                <i class="mdi mdi-alert" style="margin-left: 10px; font-size: 25px; color: #0062ff;" 
+                                title="Wybrana strona została zabroniona dla procesu pobierania danych przez plik robots.txt! Pobieranie danych z tej strony jest dalej możliwe, ale prosimy o rozważenie usunięcia jej z procesu pobierania danych.">
+                                </i>
+                              {% endif %}
+                              {{ website.url }} 
+                            </td>
+                            <td data-label="Opis"> {{ website.description }} </td>
+                            <td data-label="Czy aktywny"> {{ website.is_ready }} </td>
+                            <td data-label="Folder">
+                              <a href="{% url 'websites-settings' pk=website.folder_id %}">
+                                <span class="icon-bg">
+                                  <i class="mdi mdi-folder" style="font-size: 25px; color: #0062ff;"></i>
+                                  <span style="color: black;">Przejdź do folderu</span>
+                                </span>
+                              </a>
+                            </td>
+                            <td data-label="Konfiguracja">
+                              <a href="{% url 'selectors-list' pk=website.pk %}">
+                                <span class="icon-bg">
+                                  <i class="mdi mdi-settings" style="font-size: 25px; color: #0062ff;"></i>
+                                  <span style="color: black;">Przejdź do konfiguracji</span>
+                                </span>
+                              </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                  {% else %}
+                  <tr>
+                    <td>
+                      Brak stron internetowych
+                    </td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  {% endif %}
                 </tbody>
               </table>
         </div>
