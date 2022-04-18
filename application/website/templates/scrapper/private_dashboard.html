@@ -45,12 +45,17 @@
         <div class="card-body">
           <h4 class="card-title">Funkcjonalności użytkownika</h4>
           <div class="template-demo">
-            <h1 class="display-4" style="color: black;">1. Konfiguracja procesu pobierania danych</h1>
-            <h1 class="display-4" style="color: black;">2. Dostęp do kreatora pobierania danych</h1>
-            <h1 class="display-4" style="color: black;">3. Eksport pobranych danych</h1>
-            <h1 class="display-4" style="color: black;">4. Zarządzanie kluczami API</h1>
-            <h1 class="display-4" style="color: black;">5. Zarządzanie kontem</h1>
+            <h1 class="display-5" style="color: black;">1. Konfiguracja procesu pobierania danych</h1>
+            <h1 class="display-5" style="color: black;">2. Dostęp do kreatora pobierania danych</h1>
+            <h1 class="display-5" style="color: black;">3. Eksport pobranych danych</h1>
+            <h1 class="display-5" style="color: black;">4. Zarządzanie kluczami API</h1>
+            <h1 class="display-5" style="color: black;">5. Zarządzanie kontem</h1>
           </div>
+          <br><br>
+          <h4 class="card-title">Strefa czasowa:</h4>
+          <div style="color: black; font-size: 22px;">{{timezone.name}}</div>
+          <br>
+          <a class="btn btn-block btn-primary" href="{% url 'change_timezone' pk=user.pk %}">Zmień</a>
         </div>
       </div>
     </div>

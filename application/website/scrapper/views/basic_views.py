@@ -67,8 +67,9 @@ class PrivateDashboardView(LoginRequiredMixin, TemplateView):
                     data_count += CollectedData.objects.filter(selector_id=selector.id).count()
 
         context["user"] = user
-        context["join_date"] = Translator.expired_date_to_pl(user.date_joined)
+        context["join_date"] = user.date_joined.strftime("%d.%m.%Y")
         context["folders_count"] = folders_count
         context["websites_count"] = websites_count
         context["data_count"] = data_count
+        context["timezone"] = user.timezone
         return context

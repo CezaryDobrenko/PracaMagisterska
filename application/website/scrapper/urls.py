@@ -87,6 +87,9 @@ from scrapper.views.news.news_views import (
     NewsList,
     NewsClear
 )
+from scrapper.views.timezone.timezone_views import (
+    ChangeTimezone
+)
 
 
 urlpatterns = [
@@ -157,6 +160,9 @@ urlpatterns = [
     path("api_keys/delete/<int:pk>", ApiKeyDelete.as_view(), name="api-key-delete"),
     path("api_keys/update/<int:pk>", ApiKeyUpdate.as_view(), name="api-key-update"),
     path("api_keys/clear/", ApiKeyClear.as_view(), name="api-key-clear"),
+
+    #Timezone views
+    path("change_timezone/<int:pk>", ChangeTimezone.as_view(), name="change_timezone"),
 
     #General views
     path("admin/", admin.site.urls),

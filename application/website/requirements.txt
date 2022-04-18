@@ -1,12 +1,10 @@
 Django==3.1
 django-cors-headers==3.5.0
 django-filter==2.3.0
-django-graphql-jwt==0.3.1
 django-stubs==1.5.0
 factory-boy==3.0.1
 graphene-django==2.13.0
 graphene-file-upload==1.2.2
-openpyxl==3.0.5
 petl==1.6.4
 PyYAML==5.3.1
 PyJWT==1.7.1

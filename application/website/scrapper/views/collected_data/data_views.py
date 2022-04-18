@@ -5,7 +5,8 @@ from scrapper.models.selectors import Selector
 from django.urls import reverse
 from .data_forms import CollectedDataClearForm, CollectedDataUpdateForm
 from scrapper.translations.language_pl import Translator
-
+from scrapper.models.user import User
+from datetime import timedelta
 
 class CollectedDataList(LoginRequiredMixin, ListView):
     model = CollectedData
@@ -14,10 +15,12 @@ class CollectedDataList(LoginRequiredMixin, ListView):
     ordering = ['pk']
 
     def get_queryset(self):
+        user = User.objects.get(id=self.request.user.id)
+        timezone_value = user.timezone.value
         selector_id = self.request.resolver_match.kwargs.get("pk")
         collected_data = []
         for element in CollectedData.objects.filter(selector_id=selector_id):
-            element.created_date = Translator.scraping_date_to_pl(element.created_date)
+            element.created_date = Translator.scraping_date_to_pl(element.created_date + timedelta(hours=timezone_value))
             collected_data.append(element)
         return collected_data
 

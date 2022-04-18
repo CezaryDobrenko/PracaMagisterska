@@ -7,6 +7,7 @@ from scrapper.translations.language_pl import Translator
 from scrapper.models.utils.intervals import Interval
 from .folder_forms import FolderCreateForm, FolderUpdateForm
 from datetime import timedelta
+from scrapper.models.user import User
 
 class FoldersList(LoginRequiredMixin, ListView):
     model = Folder
@@ -16,12 +17,14 @@ class FoldersList(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         folders = []
+        user = User.objects.get(id=self.request.user.id)
         for folder in Folder.objects.filter(user_id=self.request.user.id):
             last_date = folder.last_scraping
             next_date = Interval.find_next_scraping_date(folder.last_scraping, folder.scraping_interval)
             if folder.last_scraping:
-                last_date = last_date + timedelta(hours=2)
-                next_date = next_date + timedelta(hours=2)
+                timezone_value = user.timezone.value
+                last_date = last_date + timedelta(hours=timezone_value)
+                next_date = next_date + timedelta(hours=timezone_value)
             folder.sites = Website.objects.filter(folder_id=folder.id).count()
             folder.is_ready = Translator.is_ready_to_pl(folder.is_ready)
             folder.scraping_interval = Translator.interval_to_pl(folder.scraping_interval)

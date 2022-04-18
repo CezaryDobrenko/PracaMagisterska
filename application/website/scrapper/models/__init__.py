@@ -7,3 +7,4 @@ from scrapper.models.collected_data import CollectedData
 from scrapper.models.selectors import Selector
 from scrapper.models.selector_type import SelectorType
 from scrapper.models.website import Website
+from scrapper.models.timezone import Timezone

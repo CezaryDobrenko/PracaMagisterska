@@ -1,3 +1,12 @@
+lookup_table = {
+    "January": "Stycznia",   "February": "Lutego",
+    "March": "Marca",       "April": "Kwietnia",
+    "May": "Maja",           "June": "Czerwca",
+    "July": "Lipieca",       "August": "Sierpnia",
+    "September": "Września",  "October": "Października",
+    "November": "Listopada", "December": "Grudnia"
+}
+
 class Translator:
 
     @staticmethod
@@ -35,14 +44,6 @@ class Translator:
             return value
 
         converted_date = value.strftime("%H:%M:%S, %d-%B-%Y")
-        lookup_table = {
-            "January": "Styczeń",   "February": "Luty",
-            "March": "Marzec",       "April": "Kwiecień",
-            "May": "Maj",           "June": "Czerwiec",
-            "July": "Lipiec",       "August": "Sierpień",
-            "September": "Wrzesień",  "October": "Październik",
-            "November": "Listopad", "December": "Grudzień"
-        }
         for k, v in lookup_table.items():
             if k in converted_date:
                 converted_date = converted_date.replace(k, v)
@@ -54,14 +55,6 @@ class Translator:
             return value
 
         converted_date = value.strftime("%d-%B-%Y")
-        lookup_table = {
-            "January": "Styczeń",   "February": "Luty",
-            "March": "Marzec",       "April": "Kwiecień",
-            "May": "Maj",           "June": "Czerwiec",
-            "July": "Lipiec",       "August": "Sierpień",
-            "September": "Wrzesień",  "October": "Październik",
-            "November": "Listopad", "December": "Grudzień"
-        }
         for k, v in lookup_table.items():
             if k in converted_date:
                 converted_date = converted_date.replace(k, v)
@@ -69,13 +62,5 @@ class Translator:
 
     @staticmethod
     def month_to_pl(month):
-        lookup_table = {
-            "January": "Styczeń",   "February": "Luty",
-            "March": "Marzec",       "April": "Kwiecień",
-            "May": "Maj",           "June": "Czerwiec",
-            "July": "Lipiec",       "August": "Sierpień",
-            "September": "Wrzesień",  "October": "Październik",
-            "November": "Listopad", "December": "Grudzień"
-        }
         return lookup_table.get(month)
 
