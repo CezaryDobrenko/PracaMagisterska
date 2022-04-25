@@ -2,7 +2,7 @@
 SCRAPPERHUB PROJECT
 =================
 -------------------------
-FREE Open source projekt
+FREE and open source project
 -------------------------
 
 Introduction
