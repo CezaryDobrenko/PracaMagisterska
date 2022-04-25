@@ -19,10 +19,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "%tvdn&f2wahsz&gapfjnn84w=h_%%$32zu4-n+ayr^a)@wjwyx"
+SECRET_KEY = os.environ.get("DJANGO_SECRET", "DS@RWSFR!%@#^SFZXes#afasfcz$#412e")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "localhost", "172.16.11.11", "192.168.8.102"]
 
@@ -133,8 +133,6 @@ AUTHENTICATION_BACKENDS = [
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-MAX_UPLOADED_FILE_SIZE_KB = os.environ.get("MAX_UPLOADED_FILE_SIZE_KB", 5000)
-
 AUTH_USER_MODEL = "scrapper.User"
 
 DEFAULT_MODEL_SIZES_NUMBER = 7
@@ -144,40 +142,13 @@ DEFAULT_MODEL_SIZES_NUMBER = 7
 LOGIN_REDIRECT_URL = "dashboard"
 LOGOUT_REDIRECT_URL = "dashboard"
 
-
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": True,
-    "formatters": {
-        "verbose": {
-            "format": "%(asctime)s [%(levelname)s] %(name)s.%(funcName)s: %(message)s"
-        }
-    },
-    "handlers": {
-        "null": {"level": "DEBUG", "class": "logging.NullHandler"},
-        "console": {
-            "level": "DEBUG",
-            "class": "logging.StreamHandler",
-            "formatter": "verbose",
-        },
-    },
-    "loggers": {
-        "django": {"handlers": ["console"], "level": "WARNING"},
-        "graphql": {"handlers": ["console"], "level": "INFO"},
-        "creators": {"handlers": ["console"], "level": "INFO"},
-        "filters": {"handlers": ["console"], "level": "INFO"},
-        "models": {"handlers": ["console"], "level": "INFO"},
-        "utils": {"handlers": ["console"], "propagate": True, "level": "INFO"},
-    },
-}
-
 ANONYMOUS_USER_NAME = None
 APP_LABEL = "scrapper"
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = "noreply.scrapperhub@gmail.com"
-EMAIL_HOST_PASSWORD = "saetndlufshykbvj"
+EMAIL_HOST_USER = os.environ.get("SMTP_EMAIL")
+EMAIL_HOST_PASSWORD = os.environ.get("SMTP_PASSWORD")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = "noreply.scrapperhub@gmail.com"
+DEFAULT_FROM_EMAIL = os.environ.get("SMTP_EMAIL")
