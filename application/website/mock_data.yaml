@@ -1,7 +1,7 @@
 - model: scrapper.user
   pk: 1
   fields:
-    password: pbkdf2_sha256$180000$uwPDHSJPAqy9$1153kzg6MhTVRelzqDtZmZv8kQqRn/FPhVcnCLM/IKc=
+    password: pbkdf2_sha256$216000$jCpPOvFAD7DB$/MicFmWyiUxEfJI6NZPkkg5EGsytg/XnRA7zegVMFHc=
     last_login: null
     is_superuser: true
     username: supervisor
