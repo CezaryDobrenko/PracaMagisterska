@@ -1,5 +1,6 @@
 from django.test import TestCase
 from scheduler.scrapper import Scrapper
+from scheduler.views import calculate_new_scrape_date
 
 
 class ScrapperTests(TestCase):
@@ -176,3 +177,6 @@ class ScrapperTests(TestCase):
         scrapper = Scrapper(url="www.test.pl", is_mocked=True)
         content = scrapper.get_soup()
         assert content is not None
+
+    def test_calculate_new_scrape_date(self):
+        assert calculate_new_scrape_date(None, "Hour1")
