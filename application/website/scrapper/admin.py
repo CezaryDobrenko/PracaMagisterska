@@ -7,6 +7,11 @@ from scrapper.models.folder import Folder
 from scrapper.models.selector_type import SelectorType
 from scrapper.models.website import Website
 from scrapper.models.selectors import Selector
+from scrapper.models.timezone import Timezone
+
+@admin.register(Timezone)
+class TimezoneAdmin(admin.ModelAdmin):
+    pass
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):

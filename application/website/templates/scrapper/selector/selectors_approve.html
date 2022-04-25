@@ -97,8 +97,8 @@
                 <form method="post">
                     {% csrf_token %}
                     <div class="control mt-5">
-                        <input type="submit" class="btn btn-success btn-lg btn-block" value="Potwierdź poprawność">
-                        <a class="btn btn-primary btn-lg btn-block" href="{% url 'selectors-list' pk=website_data.id %}">Powrót do konfiguracji</a>
+                        <input type="submit" class="btn btn-success btn-lg btn-block" value="OK" style="min-width: 170px;">
+                        <a class="btn btn-primary btn-lg btn-block" href="{% url 'selectors-list' pk=website_data.id %}" style="min-width: 170px;">Powrót</a>
                     </div>
                 </form>
               </div>

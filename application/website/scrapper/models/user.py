@@ -24,17 +24,3 @@ class User(AbstractUser, GrapheneMixin):
         return f"{self.__class__.__name__}(id={self.id}, name={self.email})"
 
     __repr__ = __str__
-
-# This model is used for testing scheduler
-class Test(BaseModel):
-    class Meta:
-        app_label = APP_LABEL
-        ordering = ("pk",)
-
-    name = models.CharField(max_length=30)
-    counter = models.IntegerField(default=0)
-
-    def __str__(self) -> str:
-        return f"{self.__class__.__name__}(id={self.id}, name={self.name})"
-
-    __repr__ = __str__
