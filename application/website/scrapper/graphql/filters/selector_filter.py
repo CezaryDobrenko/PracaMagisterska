@@ -11,7 +11,7 @@ class SelectorFilter(FilterSet):
     description = CharFilter(lookup_expr="icontains", field_name="description")
     selector_type = GlobalIDMultipleChoiceFilter()
 
-    def is_ready_filter(self, queryset, name, value):
+    def is_ready_filter(self, queryset, name, value: str):
         if value:
             return queryset.filter(is_ready=True)
         return queryset.filter(is_ready=False)

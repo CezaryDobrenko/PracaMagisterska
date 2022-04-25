@@ -45,7 +45,7 @@ class Translator:
         return "Nie"
 
     @staticmethod
-    def scraping_date_to_pl(value):
+    def scraping_date_to_pl(value: str) -> str:
         if value is None:
             return value
 
@@ -56,7 +56,7 @@ class Translator:
         return converted_date
 
     @staticmethod
-    def expired_date_to_pl(value):
+    def expired_date_to_pl(value: str) -> str:
         if value is None:
             return value
 
@@ -67,5 +67,5 @@ class Translator:
         return converted_date
 
     @staticmethod
-    def month_to_pl(month):
+    def month_to_pl(month: str) -> str:
         return lookup_table.get(month)

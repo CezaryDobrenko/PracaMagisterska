@@ -1,5 +1,5 @@
 from datetime import timedelta
-
+from typing import Optional
 from django.db import models
 
 
@@ -23,13 +23,13 @@ class Interval:
         DAY6 = "DAY6"
         WEEK = "WEEK"
 
-    def check_if_interval_exist(value):
+    def check_if_interval_exist(value: str) -> Optional[str]:
         intervals = {i.name: i.value for i in Interval.Options}
         if value in intervals:
             return value
         raise Exception("Non existing interval")
 
-    def find_next_scraping_date(last_scrape_date, scrape_interval):
+    def find_next_scraping_date(last_scrape_date: str, scrape_interval: str) -> Optional[str]:
         if last_scrape_date is None:
             return last_scrape_date
 

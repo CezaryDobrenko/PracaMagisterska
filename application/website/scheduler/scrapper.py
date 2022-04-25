@@ -24,17 +24,17 @@ class Scrapper:
             self.content = content
             self.soup = BeautifulSoup(content, "html.parser")
 
-    def __download_content(self, url):
+    def __download_content(self, url) -> str:
         return self.scraper.get(url).content
 
-    def __remove_html_tags(self, results, replace=""):
+    def __remove_html_tags(self, results: list, replace: str ="") -> list:
         parsed_results = []
         for result in results:
             parsed_result = re.sub(re.compile("<.*?>"), replace, str(result))
             parsed_results.append(parsed_result)
         return parsed_results
 
-    def __parse_to_json(self, results):
+    def __parse_to_json(self, results: list) -> list:
         parsed_results = []
         for result in results:
             stringify_result = str(result)
@@ -43,7 +43,7 @@ class Scrapper:
             parsed_results.append(json_parsed)
         return parsed_results
 
-    def __get_custom_selectors(self, cusotm_selector):
+    def __get_custom_selectors(self, cusotm_selector: str) -> list:
         if cusotm_selector == "list":
             return ["li"]
         if cusotm_selector == "headline":
@@ -52,7 +52,7 @@ class Scrapper:
             return ["th", "td"]
         return []
 
-    def scrape_website(self, selector_type, selector_value, is_simplified):
+    def scrape_website(self, selector_type: str, selector_value: str, is_simplified: bool) -> list:
         if selector_type == "tag":
             if selector_value in ["list", "headline", "table"]:
                 selectors = self.__get_custom_selectors(selector_value)
@@ -70,8 +70,8 @@ class Scrapper:
             parsed_results = self.__remove_html_tags(results, replace=" ")
         return parsed_results
 
-    def get_content(self):
+    def get_content(self) -> str:
         return self.content
 
-    def get_soup(self):
+    def get_soup(self) -> str:
         return self.soup

@@ -9,7 +9,7 @@ from scrapper.models.website import Website
 from .scrapper import Scrapper
 
 
-def calculate_new_scrape_date(last_scraping, interval):
+def calculate_new_scrape_date(last_scraping: str, interval: str) -> tuple:
     now = timezone.now()
     next_scrape_date = Interval.find_next_scraping_date(last_scraping, interval)
     if next_scrape_date is None:
