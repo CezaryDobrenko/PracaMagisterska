@@ -1,23 +1,25 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView
-from scrapper.models.folder import Folder
-from django.views import View
-from django.http import HttpResponse, JsonResponse
-from scrapper.export import Export
 import json
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse, JsonResponse
+from django.views import View
+from django.views.generic import ListView
+from scrapper.export import Export
+from scrapper.models.folder import Folder
 
 
 class ExportList(LoginRequiredMixin, ListView):
     model = Folder
     template_name = "scrapper/export/export_list.html"
     paginate_by = 10
-    ordering = ['pk']
+    ordering = ["pk"]
 
     def get_queryset(self):
         folders = []
         for folder in Folder.objects.filter(user_id=self.request.user.id):
             folders.append(folder)
         return folders
+
 
 class ExportJSON(LoginRequiredMixin, ListView):
     def get(self, request, pk):
@@ -37,6 +39,7 @@ class ExportTXT(LoginRequiredMixin, ListView):
         response["Content-Disposition"] = f'attachment; filename="expoted_data.txt"'
         return response
 
+
 class ExportXML(LoginRequiredMixin, View):
     def get(self, request, pk):
         export = Export(pk)
@@ -44,6 +47,7 @@ class ExportXML(LoginRequiredMixin, View):
         response = HttpResponse(data)
         response["Content-Disposition"] = f'attachment; filename="expoted_data.xml"'
         return response
+
 
 class ExportCSV(LoginRequiredMixin, View):
     def get(self, request, pk):

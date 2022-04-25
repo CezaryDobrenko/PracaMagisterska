@@ -1,8 +1,13 @@
 from django.test import Client, TestCase
 from django.urls import reverse
-
-from scrapper.tests.factories import UserFactory, FolderFactory, WebsiteFactory, SelectorFactory, CollectedDataFactory
 from scrapper.models.collected_data import CollectedData
+from scrapper.tests.factories import (
+    CollectedDataFactory,
+    FolderFactory,
+    SelectorFactory,
+    UserFactory,
+    WebsiteFactory,
+)
 
 
 class CollectedDataCBVTests(TestCase):
@@ -23,7 +28,9 @@ class CollectedDataCBVTests(TestCase):
         _ = CollectedData(value="data_1", selector=self.selector)
         _ = CollectedData(value="data_2", selector=self.selector)
 
-        response = self.logged_client.get(reverse(self.list_view, args=(self.website.id,)))
+        response = self.logged_client.get(
+            reverse(self.list_view, args=(self.website.id,))
+        )
         expected = list(CollectedData.objects.all())
 
         assert response.status_code == 200
@@ -38,7 +45,6 @@ class CollectedDataCBVTests(TestCase):
 
         assert response.status_code == 200
         assert CollectedData.objects.filter(value="data_1").exists() is False
-
 
     def test_update_view(self):
         collected_data = CollectedDataFactory(value="data_1", selector=self.selector)

@@ -1,20 +1,20 @@
 import logging
+
 import graphene
 from scrapper.graphql.auth import authenticate_required
-from scrapper.models.api_key import ApiKey
-from scrapper.models.folder import Folder
-from scrapper.models.website import Website
-from scrapper.models.selectors import Selector
-from scrapper.models.selector_type import SelectorType
 from scrapper.graphql.schema.folder import FolderNode
-from scrapper.graphql.schema.website import WebsiteNode
 from scrapper.graphql.schema.selector import SelectorNode
-from scrapper.models.utils.intervals import Interval
+from scrapper.graphql.schema.website import WebsiteNode
+from scrapper.models.api_key import ApiKey
 from scrapper.models.collected_data import CollectedData
-
-
+from scrapper.models.folder import Folder
+from scrapper.models.selector_type import SelectorType
+from scrapper.models.selectors import Selector
+from scrapper.models.utils.intervals import Interval
+from scrapper.models.website import Website
 
 logger = logging.getLogger(__name__)
+
 
 class DeactivateApiKey(graphene.Mutation):
     is_deactivated = graphene.Boolean()
@@ -104,7 +104,9 @@ class UpdateFolder(graphene.Mutation):
         if "name" in kwargs.keys():
             update_data["name"] = kwargs.get("name")
         if "scraping_interval" in kwargs.keys():
-            update_data["scraping_interval"] = Interval.check_if_interval_exist(kwargs.get("scraping_interval"))
+            update_data["scraping_interval"] = Interval.check_if_interval_exist(
+                kwargs.get("scraping_interval")
+            )
         folder.update(**update_data)
         return UpdateFolder(folder=folder)
 
@@ -117,7 +119,7 @@ class UpdateWebsite(graphene.Mutation):
         description = graphene.String()
         is_ready = graphene.Boolean()
         is_simplified = graphene.Boolean()
-        
+
     @authenticate_required()
     def mutate(self, info, website_id: str, **kwargs):
         website_pk = Website.retrieve_id(website_id)
@@ -134,6 +136,7 @@ class UpdateWebsite(graphene.Mutation):
             update_data["is_simplified"] = kwargs.get("is_simplified")
         website.update(**update_data)
         return UpdateWebsite(website=website)
+
 
 class UpdateSelector(graphene.Mutation):
     selector = graphene.Field(SelectorNode)
@@ -157,9 +160,12 @@ class UpdateSelector(graphene.Mutation):
         if "description" in kwargs.keys():
             update_data["description"] = kwargs.get("description")
         if "selector_type" in kwargs.keys():
-            update_data["selector_type_id"] = SelectorType.retrieve_id(kwargs.get("selector_type"))
+            update_data["selector_type_id"] = SelectorType.retrieve_id(
+                kwargs.get("selector_type")
+            )
         selector.update(**update_data)
         return UpdateSelector(selector=selector)
+
 
 class ClearSelectorData(graphene.Mutation):
     selector = graphene.Field(SelectorNode)
@@ -178,7 +184,6 @@ class ClearSelectorData(graphene.Mutation):
         for data_row in collected_data:
             data_row.delete()
         return UpdateSelector(selector=selector)
-
 
 
 class CustomMutation(graphene.ObjectType):

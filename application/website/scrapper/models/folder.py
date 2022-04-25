@@ -1,10 +1,10 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from scrapper.models.user import User
+from scrapper.models.utils.base import BaseModel
+from scrapper.models.utils.intervals import Interval
 from scrapper.settings import APP_LABEL
 
-from scrapper.models.utils.base import BaseModel
-from scrapper.models.user import User
-from scrapper.models.utils.intervals import Interval
 
 class Folder(BaseModel):
     class Meta:
@@ -18,7 +18,6 @@ class Folder(BaseModel):
     )
     last_scraping = models.DateTimeField(default=None, null=True)
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True)
-    
 
     def update_last_scraping(self, scrape_date):
         self.last_scraping = scrape_date

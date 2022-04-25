@@ -1,13 +1,15 @@
-from scrapper.views.basic_forms import BaseForm
-from scrapper.models.user import User
-from django.utils.translation import ugettext_lazy as _
+import time
+from random import randint
+
 from django import forms
 from django.core.mail import EmailMessage
-from random import randint
-from django.urls import reverse
 from django.http import HttpResponseRedirect
-import time
-from scrapper.auth import encode_token, decode_token
+from django.urls import reverse
+from django.utils.translation import ugettext_lazy as _
+from scrapper.auth import decode_token, encode_token
+from scrapper.models.user import User
+from scrapper.views.basic_forms import BaseForm
+
 
 def check_is_password_is_strong(password):
     num_exist = False
@@ -21,8 +23,8 @@ def check_is_password_is_strong(password):
             upper_char = True
         if p_character.islower():
             lower_char = True
-            
-    message = [] 
+
+    message = []
     if len(password) < 8:
         message.append("Hasło musi mieć przynajmniej 8 znaków")
     if not num_exist:
@@ -31,8 +33,9 @@ def check_is_password_is_strong(password):
         message.append("Hasło musi zawierać przynajmniej jedną dużą literę")
     if not lower_char:
         message.append("Hasło musi zawierać przynajmniej jedną małą literę")
-    
+
     return message
+
 
 class RegisterForm(BaseForm):
     class Meta:
@@ -62,9 +65,9 @@ class RegisterForm(BaseForm):
         user.set_password(self.data["password"])
         user.save()
         email = EmailMessage(
-            'Aktywacja konta w platformie SCRAPPERHUB',
-            f"Kod aktywacyjny: {random_pin}", 
-            to=[self.data["username"]]
+            "Aktywacja konta w platformie SCRAPPERHUB",
+            f"Kod aktywacyjny: {random_pin}",
+            to=[self.data["username"]],
         )
         email.send()
 
@@ -90,6 +93,7 @@ class ResetPasswordConfirmForm(BaseForm):
         user.set_password(self.data["new_password"])
         user.save()
 
+
 class ResetPasswordForm(BaseForm):
     class Meta:
         model = User
@@ -104,13 +108,13 @@ class ResetPasswordForm(BaseForm):
             raise forms.ValidationError(errors)
 
     def save(self, commit=True):
-        payload = {"email": self.data["username"], "exp": time.time()+3600}
+        payload = {"email": self.data["username"], "exp": time.time() + 3600}
         token = encode_token(payload)
         link = f"http://localhost/reset_password_confirm/{token}"
         email = EmailMessage(
-            'Reset hasła do konta w platformie SCRAPPERHUB',
-            f"Link pozwalający na reset hasła: {link}", 
-            to=[self.data["username"]]
+            "Reset hasła do konta w platformie SCRAPPERHUB",
+            f"Link pozwalający na reset hasła: {link}",
+            to=[self.data["username"]],
         )
         email.send()
 
@@ -136,7 +140,7 @@ class ChangePasswordForm(BaseForm):
         user = User.objects.get(id=self.data["user_id"])
         user.set_password(self.data["new_password"])
         user.save()
-        return HttpResponseRedirect(reverse('private_dashboard'))
+        return HttpResponseRedirect(reverse("private_dashboard"))
 
 
 class ActivationForm(BaseForm):
@@ -161,4 +165,4 @@ class ActivationForm(BaseForm):
         user = User.objects.filter(email=self.data["username"]).first()
         user.is_active = True
         user.save()
-        return HttpResponseRedirect(reverse('login'))
+        return HttpResponseRedirect(reverse("login"))

@@ -1,14 +1,20 @@
 lookup_table = {
-    "January": "Stycznia",   "February": "Lutego",
-    "March": "Marca",       "April": "Kwietnia",
-    "May": "Maja",           "June": "Czerwca",
-    "July": "Lipieca",       "August": "Sierpnia",
-    "September": "Września",  "October": "Października",
-    "November": "Listopada", "December": "Grudnia"
+    "January": "Stycznia",
+    "February": "Lutego",
+    "March": "Marca",
+    "April": "Kwietnia",
+    "May": "Maja",
+    "June": "Czerwca",
+    "July": "Lipieca",
+    "August": "Sierpnia",
+    "September": "Września",
+    "October": "Października",
+    "November": "Listopada",
+    "December": "Grudnia",
 }
 
-class Translator:
 
+class Translator:
     @staticmethod
     def interval_to_pl(value: str) -> str:
         translation_dict = {
@@ -63,4 +69,3 @@ class Translator:
     @staticmethod
     def month_to_pl(month):
         return lookup_table.get(month)
-

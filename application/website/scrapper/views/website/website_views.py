@@ -1,18 +1,19 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import DeleteView, ListView, FormView, UpdateView
-from scrapper.models.website import Website
-from scrapper.models.selectors import Selector
-from scrapper.models.folder import Folder
-from scrapper.translations.language_pl import Translator
-from .website_forms import WebsiteCreateForm, WebsiteUpdateForm, WebsiteClearForm
 from django.urls import reverse
+from django.views.generic import DeleteView, FormView, ListView, UpdateView
+from scrapper.models.folder import Folder
+from scrapper.models.selectors import Selector
+from scrapper.models.website import Website
+from scrapper.translations.language_pl import Translator
+
+from .website_forms import WebsiteClearForm, WebsiteCreateForm, WebsiteUpdateForm
 
 
 class WebsitesList(LoginRequiredMixin, ListView):
     model = Website
     template_name = "scrapper/website/webistes_list.html"
     paginate_by = 10
-    ordering = ['pk']
+    ordering = ["pk"]
 
     def get_queryset(self):
         folder_id = self.request.resolver_match.kwargs.get("pk")
@@ -34,7 +35,7 @@ class AllWebsitesList(LoginRequiredMixin, ListView):
     model = Website
     template_name = "scrapper/website/all_webistes_list.html"
     paginate_by = 10
-    ordering = ['pk']
+    ordering = ["pk"]
 
     def get_queryset(self):
         folders = Folder.objects.filter(user_id=self.request.user.id)

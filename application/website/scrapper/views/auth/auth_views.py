@@ -1,9 +1,16 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView, FormView, DeleteView, UpdateView
 from django.urls import reverse_lazy
-from .auth_forms import RegisterForm, ActivationForm, ChangePasswordForm, ResetPasswordForm, ResetPasswordConfirmForm
-from scrapper.models.user import User
+from django.views.generic import DeleteView, FormView, TemplateView, UpdateView
 from scrapper.auth import decode_token
+from scrapper.models.user import User
+
+from .auth_forms import (
+    ActivationForm,
+    ChangePasswordForm,
+    RegisterForm,
+    ResetPasswordConfirmForm,
+    ResetPasswordForm,
+)
 
 
 class LoginView(LoginRequiredMixin, TemplateView):
@@ -66,6 +73,7 @@ class PasswordUpdate(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
+
 
 class ResetPassowrdConfirm(FormView):
     form_class = ResetPasswordConfirmForm

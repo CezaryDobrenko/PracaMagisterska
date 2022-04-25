@@ -1,7 +1,7 @@
-from scrapper.models.collected_data import CollectedData
-from scrapper.views.basic_forms import BaseForm
-from scrapper.models.selectors import Selector
 from django.utils.translation import ugettext_lazy as _
+from scrapper.models.collected_data import CollectedData
+from scrapper.models.selectors import Selector
+from scrapper.views.basic_forms import BaseForm
 
 
 class CollectedDataClearForm(BaseForm):
@@ -21,5 +21,5 @@ class CollectedDataUpdateForm(BaseForm):
         model = CollectedData
         fields = ["value"]
         labels = {
-            'value': _('Wartość:'),
+            "value": _("Wartość:"),
         }

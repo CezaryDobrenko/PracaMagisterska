@@ -1,7 +1,6 @@
 from django.test import Client, TestCase
 from django.urls import reverse
-
-from scrapper.tests.factories import UserFactory, WebsiteFactory, FolderFactory
+from scrapper.tests.factories import FolderFactory, UserFactory, WebsiteFactory
 
 
 class InfoPageCBVTests(TestCase):
@@ -45,8 +44,18 @@ class InfoPageCBVTests(TestCase):
         assert response.status_code == 200
 
     def test_news_view(self):
-        _ = WebsiteFactory(url="www.test.com", is_new_data_collected=True, is_valid_with_robots=False, folder=self.folder)
-        _ = WebsiteFactory(url="www.test2.com", is_new_data_collected=True, is_valid_with_robots=True, folder=self.folder)
+        _ = WebsiteFactory(
+            url="www.test.com",
+            is_new_data_collected=True,
+            is_valid_with_robots=False,
+            folder=self.folder,
+        )
+        _ = WebsiteFactory(
+            url="www.test2.com",
+            is_new_data_collected=True,
+            is_valid_with_robots=True,
+            folder=self.folder,
+        )
 
         response = self.logged_client.get(reverse(self.news_view))
 
@@ -55,8 +64,18 @@ class InfoPageCBVTests(TestCase):
         assert len(response.context["warnings"]) == 1
 
     def test_news_clear_view(self):
-        web1 = WebsiteFactory(url="www.test.com", is_new_data_collected=True, is_valid_with_robots=False, folder=self.folder)
-        web2 = WebsiteFactory(url="www.test2.com", is_new_data_collected=True, is_valid_with_robots=True, folder=self.folder)
+        web1 = WebsiteFactory(
+            url="www.test.com",
+            is_new_data_collected=True,
+            is_valid_with_robots=False,
+            folder=self.folder,
+        )
+        web2 = WebsiteFactory(
+            url="www.test2.com",
+            is_new_data_collected=True,
+            is_valid_with_robots=True,
+            folder=self.folder,
+        )
 
         response = self.logged_client.post(
             reverse(self.news_clear_view, args=(self.user.id,)), follow=True

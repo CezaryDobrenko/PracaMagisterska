@@ -1,11 +1,11 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from scrapper.settings import APP_LABEL
 from scrapper.models.timezone import Timezone
-
 from scrapper.models.utils.base import BaseModel
 from scrapper.models.utils.graphql_mixin import GrapheneMixin
+from scrapper.settings import APP_LABEL
+
 
 class User(AbstractUser, GrapheneMixin):
     class Meta:
@@ -16,7 +16,9 @@ class User(AbstractUser, GrapheneMixin):
     email = models.EmailField(_("email address"), unique=True, blank=True)
     is_active = models.BooleanField(default=False)
     verification_pin = models.CharField(max_length=6)
-    timezone = models.ForeignKey(to=Timezone, on_delete=models.SET_DEFAULT, default=3, null=False)
+    timezone = models.ForeignKey(
+        to=Timezone, on_delete=models.SET_DEFAULT, default=3, null=False
+    )
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
 

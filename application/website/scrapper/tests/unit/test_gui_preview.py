@@ -1,6 +1,6 @@
+from django.test import TestCase
 from scrapper.gui_preview import GUIPreview
 
-from django.test import TestCase
 
 class GuiPreviewTests(TestCase):
     def test_gui_preview(self):

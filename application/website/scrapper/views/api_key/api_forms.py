@@ -1,24 +1,26 @@
-from scrapper.views.basic_forms import BaseForm
-from scrapper.models.api_key import ApiKey
-from django.utils.translation import ugettext_lazy as _
-from django import forms
 import datetime
-import uuid 
-from django.urls import reverse
+import uuid
+
+from django import forms
 from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.utils.translation import ugettext_lazy as _
+from scrapper.models.api_key import ApiKey
+from scrapper.views.basic_forms import BaseForm
+
 
 class ApiKeyCreateForm(BaseForm):
     expired_time = forms.DateField(
-        widget = forms.SelectDateWidget(), 
-        label='Data wygaśnięcia:', 
-        initial=datetime.date.today
+        widget=forms.SelectDateWidget(),
+        label="Data wygaśnięcia:",
+        initial=datetime.date.today,
     )
 
     class Meta:
         model = ApiKey
         fields = ["name"]
         labels = {
-            'name': _('Nazwa:'),
+            "name": _("Nazwa:"),
         }
 
     def save(self, commit=True):
@@ -45,17 +47,17 @@ class ApiKeyClearForm(BaseForm):
 
 class ApiKeyUpdateForm(BaseForm):
     expired_time = forms.DateField(
-        widget = forms.SelectDateWidget(), 
-        label='Data wygaśnięcia:', 
-        initial=datetime.date.today
+        widget=forms.SelectDateWidget(),
+        label="Data wygaśnięcia:",
+        initial=datetime.date.today,
     )
 
     class Meta:
         model = ApiKey
         fields = ["name", "is_active"]
         labels = {
-            'name': _('Nazwa'),
-            'is_active': _('Czy aktywny?'),
+            "name": _("Nazwa"),
+            "is_active": _("Czy aktywny?"),
         }
 
     def save(self, commit=True):
@@ -67,4 +69,4 @@ class ApiKeyUpdateForm(BaseForm):
         data["is_active"] = self.cleaned_data["is_active"]
         data["expired_at"] = expired_time
         key.update(**data)
-        return HttpResponseRedirect(reverse('folders'))
+        return HttpResponseRedirect(reverse("folders"))

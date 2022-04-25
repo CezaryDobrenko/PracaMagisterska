@@ -1,11 +1,13 @@
 from django.http import HttpResponse
 from django.utils import timezone
-from scrapper.models.folder import Folder
-from scrapper.models.website import Website
-from scrapper.models.utils.intervals import Interval
-from scrapper.models.selectors import Selector
 from scrapper.models.collected_data import CollectedData
+from scrapper.models.folder import Folder
+from scrapper.models.selectors import Selector
+from scrapper.models.utils.intervals import Interval
+from scrapper.models.website import Website
+
 from .scrapper import Scrapper
+
 
 def calculate_new_scrape_date(last_scraping, interval):
     now = timezone.now()
@@ -30,7 +32,9 @@ def scheduler(request, interval: str) -> HttpResponse:
             )
             if is_valid:
                 folder.update_last_scraping(new_date)
-                if websites := Website.objects.filter(folder_id=folder.id, is_ready=True):
+                if websites := Website.objects.filter(
+                    folder_id=folder.id, is_ready=True
+                ):
                     for website in websites:
                         is_new_data_collected = False
                         if selectors := Selector.objects.filter(website_id=website.id):
@@ -39,12 +43,11 @@ def scheduler(request, interval: str) -> HttpResponse:
                                 data = scrapper.scrape_website(
                                     selector.selector_type.name,
                                     selector.value,
-                                    website.is_simplified
+                                    website.is_simplified,
                                 )
                                 for item in data:
                                     _, created = CollectedData.objects.get_or_create(
-                                        value=item,
-                                        selector=selector
+                                        value=item, selector=selector
                                     )
                                     if created:
                                         is_new_data_collected = True

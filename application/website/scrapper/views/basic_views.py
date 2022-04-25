@@ -1,10 +1,10 @@
-from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from scrapper.models.user import User
-from scrapper.models.folder import Folder
-from scrapper.models.website import Website
-from scrapper.models.selectors import Selector
+from django.views.generic import TemplateView
 from scrapper.models.collected_data import CollectedData
+from scrapper.models.folder import Folder
+from scrapper.models.selectors import Selector
+from scrapper.models.user import User
+from scrapper.models.website import Website
 from scrapper.translations.language_pl import Translator
 
 
@@ -21,7 +21,9 @@ class DashboardView(TemplateView):
             for website in Website.objects.filter(folder_id=folder.id).all():
                 websites_count += 1
                 for selector in Selector.objects.filter(website_id=website.id).all():
-                    data_count += CollectedData.objects.filter(selector_id=selector.id).count()
+                    data_count += CollectedData.objects.filter(
+                        selector_id=selector.id
+                    ).count()
 
         context["folders_count"] = folders_count
         context["websites_count"] = websites_count
@@ -60,7 +62,9 @@ class PrivateDashboardView(LoginRequiredMixin, TemplateView):
             for website in Website.objects.filter(folder_id=folder.id).all():
                 websites_count += 1
                 for selector in Selector.objects.filter(website_id=website.id).all():
-                    data_count += CollectedData.objects.filter(selector_id=selector.id).count()
+                    data_count += CollectedData.objects.filter(
+                        selector_id=selector.id
+                    ).count()
 
         context["user"] = user
         context["join_date"] = user.date_joined.strftime("%d.%m.%Y")

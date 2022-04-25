@@ -1,8 +1,9 @@
-from scrapper.views.basic_forms import BaseForm
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from scrapper.models.timezone import Timezone
 from scrapper.models.user import User
-from django.urls import reverse
-from django.http import HttpResponseRedirect
+from scrapper.views.basic_forms import BaseForm
+
 
 class ChangeTimezoneForm(BaseForm):
     class Meta:
@@ -13,4 +14,4 @@ class ChangeTimezoneForm(BaseForm):
         user = User.objects.get(id=id)
         user.timezone_id = self.data["timezone"]
         user.save()
-        return HttpResponseRedirect(reverse('private_dashboard'))
+        return HttpResponseRedirect(reverse("private_dashboard"))

@@ -1,9 +1,11 @@
-from scrapper.models.website import Website
-from scrapper.models.selectors import Selector
-from scrapper.models.collected_data import CollectedData
 import json
-from dicttoxml import dicttoxml
 from json import loads
+
+from dicttoxml import dicttoxml
+from scrapper.models.collected_data import CollectedData
+from scrapper.models.selectors import Selector
+from scrapper.models.website import Website
+
 
 class Export:
     def __init__(self, folder_id: int):
@@ -51,7 +53,7 @@ class Export:
             for selector in Selector.objects.filter(website_id=website.id):
                 output += f"{selector.selector_type.name}-{selector.value}\n"
                 for item in CollectedData.objects.filter(selector_id=selector.id):
-                    parsed = item.value.replace(',', '.')
+                    parsed = item.value.replace(",", ".")
                     output += f"{parsed},\n"
                 output += "\n\n"
         return output

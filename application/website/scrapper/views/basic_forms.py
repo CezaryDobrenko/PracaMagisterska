@@ -2,28 +2,31 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from scrapper.translations.language_pl import Translator
 
+
 class BaseForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         form_to_translate = [
-            "FolderUpdateForm", 
-            "FolderCreateForm", 
-            "ApiKeyCreateForm", 
-            "ApiKeyUpdateForm"
+            "FolderUpdateForm",
+            "FolderCreateForm",
+            "ApiKeyCreateForm",
+            "ApiKeyUpdateForm",
         ]
         form_name = self.__class__.__name__
         for visible in self.visible_fields():
             field_type = visible.field.widget.__class__.__name__
             if field_type == "Select" and form_name in form_to_translate:
                 visible.field.choices = self.__select_translator_hander(visible.field)
-                visible.field.widget.attrs['class'] = 'form-control'
+                visible.field.widget.attrs["class"] = "form-control"
             if field_type == "SelectDateWidget" and form_name in form_to_translate:
-                visible.field.widget.months = self.__select_date_translator_hander(visible.field)
-                visible.field.widget.attrs['class'] = 'form-control'
+                visible.field.widget.months = self.__select_date_translator_hander(
+                    visible.field
+                )
+                visible.field.widget.attrs["class"] = "form-control"
             elif field_type == "CheckboxInput":
-                visible.field.widget.attrs['class'] = 'form-control-checkbox'
+                visible.field.widget.attrs["class"] = "form-control-checkbox"
             else:
-                visible.field.widget.attrs['class'] = 'form-control'
+                visible.field.widget.attrs["class"] = "form-control"
 
     def __select_translator_hander(self, field):
         parsed_choices = []

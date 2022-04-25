@@ -1,12 +1,11 @@
 import graphene
-from scrapper.models.user import User
 from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
+from scrapper.graphql.auth import authenticate_required
 from scrapper.graphql.filters.folder_filter import FolderFilter
 from scrapper.graphql.schema.folder import FolderNode
 from scrapper.models.folder import Folder
-from scrapper.graphql.auth import authenticate_required
-
+from scrapper.models.user import User
 
 
 class UserNode(DjangoObjectType):

@@ -1,10 +1,11 @@
 import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
+from scrapper.graphql.filters.website_filter import WebsiteFilter
+from scrapper.graphql.schema.website import WebsiteNode
 from scrapper.models.folder import Folder
 from scrapper.models.website import Website
-from scrapper.graphql.schema.website import WebsiteNode
-from scrapper.graphql.filters.website_filter import WebsiteFilter
+
 
 class FolderNode(DjangoObjectType):
     class Meta:

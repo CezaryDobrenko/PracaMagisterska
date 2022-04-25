@@ -1,9 +1,9 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from scrapper.models.folder import Folder
+from scrapper.models.utils.base import BaseModel
 from scrapper.settings import APP_LABEL
 
-from scrapper.models.utils.base import BaseModel
-from scrapper.models.folder import Folder
 
 class Website(BaseModel):
     class Meta:

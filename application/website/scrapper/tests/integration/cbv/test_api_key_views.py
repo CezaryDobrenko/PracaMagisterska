@@ -1,8 +1,7 @@
 from django.test import Client, TestCase
 from django.urls import reverse
-
-from scrapper.tests.factories import UserFactory, ApiKeyFactory
 from scrapper.models.api_key import ApiKey
+from scrapper.tests.factories import ApiKeyFactory, UserFactory
 
 
 class APIKeysCBVTests(TestCase):
@@ -41,18 +40,13 @@ class APIKeysCBVTests(TestCase):
         _ = ApiKeyFactory(name="api_key_1", user=self.user)
         _ = ApiKeyFactory(name="api_key_2", user=self.user)
 
-        response = self.logged_client.post(
-            reverse(self.clear_view), follow=True
-        )
+        response = self.logged_client.post(reverse(self.clear_view), follow=True)
 
         assert response.status_code == 200
         assert ApiKey.objects.count() == 0
 
     def test_create_view(self):
-        form_data = {
-            "name": "Nowy klucz",
-            "expired_time": "2022-04-26"
-        }
+        form_data = {"name": "Nowy klucz", "expired_time": "2022-04-26"}
         response = self.logged_client.post(
             reverse(self.create_view), data=form_data, follow=True
         )
@@ -61,11 +55,17 @@ class APIKeysCBVTests(TestCase):
         assert ApiKey.objects.count() == 1
 
     def test_update_view(self):
-        api_key = ApiKeyFactory(name="api_key_1", is_active=False, expired_at="2021-03-25", user=self.user)
+        api_key = ApiKeyFactory(
+            name="api_key_1", is_active=False, expired_at="2021-03-25", user=self.user
+        )
 
         response = self.logged_client.post(
             reverse(self.update_view, args=(api_key.id,)),
-            data={"name": "new_api_key_name", "is_active": "on", "expired_time": "2022-04-26"},
+            data={
+                "name": "new_api_key_name",
+                "is_active": "on",
+                "expired_time": "2022-04-26",
+            },
             follow=True,
         )
 

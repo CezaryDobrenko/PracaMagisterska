@@ -1,11 +1,13 @@
-from scrapper.views.basic_forms import BaseForm
-from scrapper.models.website import Website
-from django.utils.translation import ugettext_lazy as _
-from django import forms
-import validators
 import urllib.robotparser
-from django.urls import reverse
+
+import validators
+from django import forms
 from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.utils.translation import ugettext_lazy as _
+from scrapper.models.website import Website
+from scrapper.views.basic_forms import BaseForm
+
 
 def robots_validator(url):
     parsed_url = urllib.parse.urlparse(url)
@@ -15,15 +17,18 @@ def robots_validator(url):
     rp.read()
     return rp.can_fetch("*", url)
 
+
 class WebsiteCreateForm(BaseForm):
     class Meta:
         model = Website
         fields = ["url", "description", "is_ready", "is_simplified"]
         labels = {
-            'url': _('Adres WWW strony:'),
-            'description': _('Opis:'),
-            'is_ready': _('Czy aktywnya'),
-            'is_simplified': _('Czy pobrane dane przetwarzać do formatu JSON (tryb zaawansowany)?'),
+            "url": _("Adres WWW strony:"),
+            "description": _("Opis:"),
+            "is_ready": _("Czy aktywnya"),
+            "is_simplified": _(
+                "Czy pobrane dane przetwarzać do formatu JSON (tryb zaawansowany)?"
+            ),
         }
 
     def clean(self):
@@ -39,7 +44,7 @@ class WebsiteCreateForm(BaseForm):
             description=self.cleaned_data["description"],
             is_ready=self.cleaned_data["is_ready"],
             folder_id=self.cleaned_data["folder_id"],
-            is_valid_with_robots=robots_validator(self.data["url"])
+            is_valid_with_robots=robots_validator(self.data["url"]),
         )
         website.save()
 
@@ -61,10 +66,12 @@ class WebsiteUpdateForm(BaseForm):
         model = Website
         fields = ["url", "description", "is_ready", "is_simplified"]
         labels = {
-            'url': _('Adres WWW strony:'),
-            'description': _('Opis:'),
-            'is_ready': _('Czy aktywna?'),
-            'is_simplified': _('Czy pobrane dane przetwarzać do formatu JSON (tryb zaawansowany)?'),
+            "url": _("Adres WWW strony:"),
+            "description": _("Opis:"),
+            "is_ready": _("Czy aktywna?"),
+            "is_simplified": _(
+                "Czy pobrane dane przetwarzać do formatu JSON (tryb zaawansowany)?"
+            ),
         }
 
     def clean(self):
@@ -94,4 +101,6 @@ class WebsiteUpdateForm(BaseForm):
         else:
             update_data["is_simplified"] = False
         website.update(**update_data)
-        return HttpResponseRedirect(reverse("websites-settings", kwargs={"pk": website.folder.id}))
+        return HttpResponseRedirect(
+            reverse("websites-settings", kwargs={"pk": website.folder.id})
+        )

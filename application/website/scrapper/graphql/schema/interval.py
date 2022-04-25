@@ -8,6 +8,7 @@ class IntervalNode(ObjectType):
 
     interval_value = graphene.String()
 
+
 class IntervalConnection(graphene.relay.Connection):
     class Meta:
         node = IntervalNode

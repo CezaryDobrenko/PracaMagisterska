@@ -1,8 +1,8 @@
-from scrapper.views.basic_forms import BaseForm
-from scrapper.models.folder import Folder
-from django.utils.translation import ugettext_lazy as _
-from django.urls import reverse
 from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.utils.translation import ugettext_lazy as _
+from scrapper.models.folder import Folder
+from scrapper.views.basic_forms import BaseForm
 
 
 class FolderCreateForm(BaseForm):
@@ -10,9 +10,9 @@ class FolderCreateForm(BaseForm):
         model = Folder
         fields = ["name", "is_ready", "scraping_interval"]
         labels = {
-            'name': _('Nazwa folderu:'),
-            'is_ready': _('Czy aktywny?'),
-            'scraping_interval': _('Okresy pobierania danych'),
+            "name": _("Nazwa folderu:"),
+            "is_ready": _("Czy aktywny?"),
+            "scraping_interval": _("Okresy pobierania danych"),
         }
 
     def save(self, commit=True):
@@ -30,9 +30,9 @@ class FolderUpdateForm(BaseForm):
         model = Folder
         fields = ["name", "is_ready", "scraping_interval"]
         labels = {
-            'name': _('Nazwa folderu:'),
-            'is_ready': _('Czy aktywny?'),
-            'scraping_interval': _('Okresy pobierania danych'),
+            "name": _("Nazwa folderu:"),
+            "is_ready": _("Czy aktywny?"),
+            "scraping_interval": _("Okresy pobierania danych"),
         }
 
     def save(self, commit=True):
@@ -43,4 +43,4 @@ class FolderUpdateForm(BaseForm):
                 self.cleaned_data["last_scraping"] = None
         folder.update(**self.cleaned_data)
         folder.save()
-        return HttpResponseRedirect(reverse('folders'))
+        return HttpResponseRedirect(reverse("folders"))

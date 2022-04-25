@@ -1,10 +1,6 @@
-from django_filters import (
-    BooleanFilter,
-    FilterSet,
-    OrderingFilter,
-    CharFilter,
-)
+from django_filters import BooleanFilter, CharFilter, FilterSet, OrderingFilter
 from graphene_django.filter import GlobalIDMultipleChoiceFilter
+
 
 class SelectorTypeFilter(FilterSet):
     order_by = OrderingFilter(

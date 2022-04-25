@@ -1,18 +1,21 @@
+from datetime import timedelta
+
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, DeleteView, FormView, UpdateView
+from django.urls import reverse
+from django.views.generic import DeleteView, FormView, ListView, UpdateView
 from scrapper.models.collected_data import CollectedData
 from scrapper.models.selectors import Selector
-from django.urls import reverse
-from .data_forms import CollectedDataClearForm, CollectedDataUpdateForm
-from scrapper.translations.language_pl import Translator
 from scrapper.models.user import User
-from datetime import timedelta
+from scrapper.translations.language_pl import Translator
+
+from .data_forms import CollectedDataClearForm, CollectedDataUpdateForm
+
 
 class CollectedDataList(LoginRequiredMixin, ListView):
     model = CollectedData
     template_name = "scrapper/collected_data/data_list.html"
     paginate_by = 10
-    ordering = ['pk']
+    ordering = ["pk"]
 
     def get_queryset(self):
         user = User.objects.get(id=self.request.user.id)
@@ -20,7 +23,9 @@ class CollectedDataList(LoginRequiredMixin, ListView):
         selector_id = self.request.resolver_match.kwargs.get("pk")
         collected_data = []
         for element in CollectedData.objects.filter(selector_id=selector_id):
-            element.created_date = Translator.scraping_date_to_pl(element.created_date + timedelta(hours=timezone_value))
+            element.created_date = Translator.scraping_date_to_pl(
+                element.created_date + timedelta(hours=timezone_value)
+            )
             collected_data.append(element)
         return collected_data
 

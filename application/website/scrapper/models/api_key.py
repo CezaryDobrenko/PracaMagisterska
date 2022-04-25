@@ -1,9 +1,9 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from scrapper.models.user import User
+from scrapper.models.utils.base import BaseModel
 from scrapper.settings import APP_LABEL
 
-from scrapper.models.utils.base import BaseModel
-from scrapper.models.user import User
 
 class ApiKey(BaseModel):
     class Meta:
@@ -17,6 +17,8 @@ class ApiKey(BaseModel):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True)
 
     def __str__(self) -> str:
-        return f"{self.__class__.__name__}(id={self.id}, name={self.name}, key={self.key})"
+        return (
+            f"{self.__class__.__name__}(id={self.id}, name={self.name}, key={self.key})"
+        )
 
     __repr__ = __str__

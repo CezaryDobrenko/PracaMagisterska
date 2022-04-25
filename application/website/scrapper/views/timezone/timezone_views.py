@@ -1,9 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import FormView
-from .timezone_forms import ChangeTimezoneForm
 from django.urls import reverse_lazy
+from django.views.generic import FormView
 from scrapper.models.timezone import Timezone
 from scrapper.models.user import User
+
+from .timezone_forms import ChangeTimezoneForm
+
 
 class ChangeTimezone(LoginRequiredMixin, FormView):
     form_class = ChangeTimezoneForm

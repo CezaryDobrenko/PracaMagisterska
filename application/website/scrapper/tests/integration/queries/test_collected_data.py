@@ -1,17 +1,27 @@
 from django.test import TestCase
 from graphene.test import Client
 from scrapper.graphql import schema
-from scrapper.tests.factories import CollectedDataFactory, RequestFactory, UserFactory, ApiKeyFactory, FolderFactory, WebsiteFactory, SelectorFactory
+from scrapper.tests.factories import (
+    ApiKeyFactory,
+    CollectedDataFactory,
+    FolderFactory,
+    RequestFactory,
+    SelectorFactory,
+    UserFactory,
+    WebsiteFactory,
+)
 
 
 class CollectedDataTest(TestCase):
     def setUp(self):
         user = UserFactory()
         api_key = ApiKeyFactory(key="51jdf2i84jsad23912esa", user=user)
-        folder = FolderFactory(name="RetrieveSMS", is_ready= True, user=user)
+        folder = FolderFactory(name="RetrieveSMS", is_ready=True, user=user)
         website = WebsiteFactory(url="www.scrape.pl", folder=folder)
         selector = SelectorFactory(value="main-text", website=website)
-        request_factory = RequestFactory(method="GET", headers={"Authorization": f"Bearer {api_key.key}"})
+        request_factory = RequestFactory(
+            method="GET", headers={"Authorization": f"Bearer {api_key.key}"}
+        )
         self.user = user
         self.folder = folder
         self.website = website
@@ -20,7 +30,7 @@ class CollectedDataTest(TestCase):
         self.request = request_factory.get_request()
 
     def test_unauthenticated_user_collected_data_query(self):
-        query = '''
+        query = """
             query CollectedData{
                 me{
                     folders(name: "RetrieveSMS"){
@@ -50,7 +60,7 @@ class CollectedDataTest(TestCase):
                     }
                 }
             }
-        '''
+        """
 
         result = self.client.execute(query)
 
@@ -61,7 +71,7 @@ class CollectedDataTest(TestCase):
         data_1 = CollectedDataFactory(value="data1", selector=self.selector)
         data_2 = CollectedDataFactory(value="data2", selector=self.selector)
 
-        query = '''
+        query = """
             query CollectedData{
                 me{
                     folders(name: "RetrieveSMS"){
@@ -91,9 +101,52 @@ class CollectedDataTest(TestCase):
                     }
                 }
             }
-        '''
+        """
 
-        expected = {'data': {'me': {'folders': {'edges': [{'node': {'websites': {'edges': [{'node': {'selectors': {'edges': [{'node': {'collectedData': {'edges': [{'node': {'value': data_1.value}}, {'node': {'value': data_2.value}}]}}}]}}}]}}}]}}}}
+        expected = {
+            "data": {
+                "me": {
+                    "folders": {
+                        "edges": [
+                            {
+                                "node": {
+                                    "websites": {
+                                        "edges": [
+                                            {
+                                                "node": {
+                                                    "selectors": {
+                                                        "edges": [
+                                                            {
+                                                                "node": {
+                                                                    "collectedData": {
+                                                                        "edges": [
+                                                                            {
+                                                                                "node": {
+                                                                                    "value": data_1.value
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "node": {
+                                                                                    "value": data_2.value
+                                                                                }
+                                                                            },
+                                                                        ]
+                                                                    }
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        }
 
         result = self.client.execute(query, context_value={"request": self.request})
 
@@ -107,7 +160,7 @@ class CollectedDataTest(TestCase):
         _ = CollectedDataFactory(value="test-data", selector=other_selector)
         _ = CollectedDataFactory(value="testowa-dana", selector=self.selector)
 
-        query = '''
+        query = """
             query CollectedData{
                 me{
                     folders(name: "RetrieveSMS"){
@@ -137,9 +190,47 @@ class CollectedDataTest(TestCase):
                     }
                 }
             }
-        '''
+        """
 
-        expected = {'data': {'me': {'folders': {'edges': [{'node': {'websites': {'edges': [{'node': {'selectors': {'edges': [{'node': {'collectedData': {'edges': [{'node': {'value': data.value}}]}}}]}}}]}}}]}}}}
+        expected = {
+            "data": {
+                "me": {
+                    "folders": {
+                        "edges": [
+                            {
+                                "node": {
+                                    "websites": {
+                                        "edges": [
+                                            {
+                                                "node": {
+                                                    "selectors": {
+                                                        "edges": [
+                                                            {
+                                                                "node": {
+                                                                    "collectedData": {
+                                                                        "edges": [
+                                                                            {
+                                                                                "node": {
+                                                                                    "value": data.value
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        }
 
         result = self.client.execute(query, context_value={"request": self.request})
 

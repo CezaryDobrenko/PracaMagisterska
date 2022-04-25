@@ -1,30 +1,34 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, DeleteView, FormView, UpdateView
-from scrapper.models.selectors import Selector
-from scrapper.models.collected_data import CollectedData
-from scrapper.models.website import Website
-from .selectors_forms import (
-    SelectorCreateForm, 
-    SelectorClearForm, 
-    SelectorUpdateForm, 
-    SelectorApproveForm, 
-    SelectorCreateGUIForm
-)
 from django.urls import reverse
+from django.views.generic import DeleteView, FormView, ListView, UpdateView
 from scrapper.gui_preview import GUIPreview
+from scrapper.models.collected_data import CollectedData
+from scrapper.models.selectors import Selector
+from scrapper.models.website import Website
+
+from .selectors_forms import (
+    SelectorApproveForm,
+    SelectorClearForm,
+    SelectorCreateForm,
+    SelectorCreateGUIForm,
+    SelectorUpdateForm,
+)
+
 
 class SelectorsList(LoginRequiredMixin, ListView):
     model = Selector
     template_name = "scrapper/selector/selectors_list.html"
     paginate_by = 10
-    ordering = ['pk']
+    ordering = ["pk"]
 
     def get_queryset(self):
         website_id = self.request.resolver_match.kwargs.get("pk")
         selectors = []
         for selector in Selector.objects.filter(website_id=website_id):
             selector.type = selector.selector_type.name
-            selector.data_count = CollectedData.objects.filter(selector_id=selector.id).count()
+            selector.data_count = CollectedData.objects.filter(
+                selector_id=selector.id
+            ).count()
             selectors.append(selector)
         return selectors
 
@@ -53,17 +57,19 @@ class SelectorsApprove(LoginRequiredMixin, FormView):
         website = Website.objects.filter(id=website_id).first()
         selectors = Selector.objects.filter(website_id=website_id)
         website_data = {
-            "id": website_id, 
-            "url": website.url, 
-            "description": website.description
+            "id": website_id,
+            "url": website.url,
+            "description": website.description,
         }
         selectors_data = []
         for selector in selectors:
-            selectors_data.append({
-                "value": selector.value,
-                "desc": selector.description,
-                "type": selector.selector_type
-            })
+            selectors_data.append(
+                {
+                    "value": selector.value,
+                    "desc": selector.description,
+                    "type": selector.selector_type,
+                }
+            )
         context["website_data"] = website_data
         context["selectors_data"] = selectors_data
         return context

@@ -1,5 +1,6 @@
-import factory
+from unittest.mock import MagicMock
 
+import factory
 from scrapper.models.api_key import ApiKey
 from scrapper.models.collected_data import CollectedData
 from scrapper.models.folder import Folder
@@ -9,10 +10,10 @@ from scrapper.models.timezone import Timezone
 from scrapper.models.user import User
 from scrapper.models.website import Website
 from werkzeug import Request
-from unittest.mock import MagicMock
+
 
 class RequestFactory:
-    def __init__(self, method = "GET", headers = None):
+    def __init__(self, method="GET", headers=None):
         self.request = MagicMock(spec=Request)
         self.request.method = method
         self.request.headers = headers
@@ -20,12 +21,14 @@ class RequestFactory:
     def get_request(self):
         return self.request
 
+
 class TimezoneFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Timezone
 
     name = "UTC"
     value = 0
+
 
 class SelectorTypeFactory(factory.django.DjangoModelFactory):
     class Meta:

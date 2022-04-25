@@ -1,9 +1,5 @@
-from django_filters import (
-    BooleanFilter,
-    FilterSet,
-    OrderingFilter,
-    CharFilter,
-)
+from django_filters import BooleanFilter, CharFilter, FilterSet, OrderingFilter
+
 
 class FolderFilter(FilterSet):
     order_by = OrderingFilter(

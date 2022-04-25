@@ -119,8 +119,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_URL = "/static/"
 MEDIA_ROOT = "/tmp/files/"
 
 GRAPHENE = {
@@ -139,8 +139,8 @@ AUTH_USER_MODEL = "scrapper.User"
 
 DEFAULT_MODEL_SIZES_NUMBER = 7
 
-#LOGIN_URL = "login"
-#LOGOUT_URL = "logout"
+# LOGIN_URL = "login"
+# LOGOUT_URL = "logout"
 LOGIN_REDIRECT_URL = "dashboard"
 LOGOUT_REDIRECT_URL = "dashboard"
 
@@ -174,10 +174,10 @@ LOGGING = {
 ANONYMOUS_USER_NAME = None
 APP_LABEL = "scrapper"
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'noreply.scrapperhub@gmail.com'
-EMAIL_HOST_PASSWORD = 'saetndlufshykbvj'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "noreply.scrapperhub@gmail.com"
+EMAIL_HOST_PASSWORD = "saetndlufshykbvj"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'noreply.scrapperhub@gmail.com'
+DEFAULT_FROM_EMAIL = "noreply.scrapperhub@gmail.com"

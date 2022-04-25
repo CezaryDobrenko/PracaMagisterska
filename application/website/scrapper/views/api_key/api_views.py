@@ -1,17 +1,19 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, DeleteView, FormView, UpdateView
-from scrapper.models.api_key import ApiKey
-from django.urls import reverse_lazy
-from .api_forms import ApiKeyClearForm, ApiKeyCreateForm, ApiKeyUpdateForm
-from scrapper.translations.language_pl import Translator
 from datetime import datetime
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.views.generic import DeleteView, FormView, ListView, UpdateView
+from scrapper.models.api_key import ApiKey
+from scrapper.translations.language_pl import Translator
+
+from .api_forms import ApiKeyClearForm, ApiKeyCreateForm, ApiKeyUpdateForm
 
 
 class ApiKeyList(LoginRequiredMixin, ListView):
     model = ApiKey
     template_name = "scrapper/api_keys/api_list.html"
     paginate_by = 10
-    ordering = ['pk']
+    ordering = ["pk"]
 
     def get_queryset(self):
         result = []

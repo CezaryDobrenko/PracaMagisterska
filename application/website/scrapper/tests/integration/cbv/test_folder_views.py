@@ -1,8 +1,8 @@
 from django.test import Client, TestCase
 from django.urls import reverse
-
-from scrapper.tests.factories import UserFactory, FolderFactory
 from scrapper.models.folder import Folder
+from scrapper.tests.factories import FolderFactory, UserFactory
+
 
 class FolderCBVTests(TestCase):
     list_view = "folders"
@@ -54,7 +54,11 @@ class FolderCBVTests(TestCase):
 
         response = self.logged_client.post(
             reverse(self.update_view, args=(folder.id,)),
-            data={"name": "Nowa nazwa", "is_ready": "False", "scraping_interval": "HOUR1"},
+            data={
+                "name": "Nowa nazwa",
+                "is_ready": "False",
+                "scraping_interval": "HOUR1",
+            },
             follow=True,
         )
 

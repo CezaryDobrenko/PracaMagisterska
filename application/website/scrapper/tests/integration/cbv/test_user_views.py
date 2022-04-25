@@ -1,8 +1,7 @@
 from django.test import Client, TestCase
 from django.urls import reverse
-
-from scrapper.tests.factories import UserFactory, TimezoneFactory
 from scrapper.models.user import User
+from scrapper.tests.factories import TimezoneFactory, UserFactory
 
 
 class UserCBVTests(TestCase):
@@ -14,7 +13,6 @@ class UserCBVTests(TestCase):
         self.logged_client = Client()
         self.user = UserFactory(email="email1@test.com", password="strong_password")
         self.logged_client.login(email="email1@test.com", password="strong_password")
-
 
     def test_delete_view(self):
         response = self.logged_client.post(
@@ -28,7 +26,12 @@ class UserCBVTests(TestCase):
         old_password = self.user.password
         response = self.logged_client.post(
             reverse(self.change_password_view, args=(self.user.id,)),
-            data={"old_password": "strong_password", "new_password ": "Haslo!1234", "new_password_confirm": "Haslo!1234", "user_id": self.user.id},
+            data={
+                "old_password": "strong_password",
+                "new_password ": "Haslo!1234",
+                "new_password_confirm": "Haslo!1234",
+                "user_id": self.user.id,
+            },
             follow=True,
         )
 
