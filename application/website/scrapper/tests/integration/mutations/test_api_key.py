@@ -20,7 +20,7 @@ class ApiKeyTest(TestCase):
         query = """
             mutation DeactivateApiKey{
                 deactivateApiKey{
-					isDeactivated
+                    isDeactivated
                 }
             }
         """
@@ -36,7 +36,7 @@ class ApiKeyTest(TestCase):
         query = """
             mutation DeactivateApiKey{
                 deactivateApiKey{
-					isDeactivated
+                    isDeactivated
                 }
             }
         """

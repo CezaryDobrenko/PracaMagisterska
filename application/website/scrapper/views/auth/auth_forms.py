@@ -5,7 +5,6 @@ from django import forms
 from django.core.mail import EmailMessage
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
 from scrapper.auth import decode_token, encode_token
 from scrapper.models.user import User
 from scrapper.views.basic_forms import BaseForm

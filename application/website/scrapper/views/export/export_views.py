@@ -27,7 +27,7 @@ class ExportJSON(LoginRequiredMixin, ListView):
         data = export.export_as_json()
         parsed_json_data = json.loads(data)
         response = JsonResponse(parsed_json_data)
-        response["Content-Disposition"] = f'attachment; filename="expoted_data.json"'
+        response["Content-Disposition"] = 'attachment; filename="expoted_data.json"'
         return response
 
 
@@ -36,7 +36,7 @@ class ExportTXT(LoginRequiredMixin, ListView):
         export = Export(pk)
         data = export.export_as_txt()
         response = HttpResponse(data)
-        response["Content-Disposition"] = f'attachment; filename="expoted_data.txt"'
+        response["Content-Disposition"] = 'attachment; filename="expoted_data.txt"'
         return response
 
 
@@ -45,7 +45,7 @@ class ExportXML(LoginRequiredMixin, View):
         export = Export(pk)
         data = export.export_as_xml()
         response = HttpResponse(data)
-        response["Content-Disposition"] = f'attachment; filename="expoted_data.xml"'
+        response["Content-Disposition"] = 'attachment; filename="expoted_data.xml"'
         return response
 
 
@@ -54,5 +54,5 @@ class ExportCSV(LoginRequiredMixin, View):
         export = Export(pk)
         data = export.export_as_csv()
         response = HttpResponse(data)
-        response["Content-Disposition"] = f'attachment; filename="expoted_data.csv"'
+        response["Content-Disposition"] = 'attachment; filename="expoted_data.csv"'
         return response

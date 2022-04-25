@@ -5,7 +5,6 @@ from scrapper.models.folder import Folder
 from scrapper.models.selectors import Selector
 from scrapper.models.user import User
 from scrapper.models.website import Website
-from scrapper.translations.language_pl import Translator
 
 
 class DashboardView(TemplateView):

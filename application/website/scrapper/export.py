@@ -61,6 +61,6 @@ class Export:
     def __is_json(self, myjson):
         try:
             value = json.loads(myjson)
-        except ValueError as e:
+        except ValueError:
             return False
         return value

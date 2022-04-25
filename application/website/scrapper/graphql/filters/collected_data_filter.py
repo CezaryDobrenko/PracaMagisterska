@@ -1,5 +1,4 @@
-from django_filters import BooleanFilter, CharFilter, FilterSet, OrderingFilter
-from graphene_django.filter import GlobalIDMultipleChoiceFilter
+from django_filters import CharFilter, FilterSet, OrderingFilter
 
 
 class CollectedDataFilter(FilterSet):

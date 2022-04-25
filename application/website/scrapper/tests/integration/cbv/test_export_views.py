@@ -34,7 +34,7 @@ class ExportCBVTests(TestCase):
         response = self.logged_client.get(
             reverse(self.export_json_view, args=(self.folder.id,)), follow=True
         )
-        expected = f'attachment; filename="expoted_data.json"'
+        expected = 'attachment; filename="expoted_data.json"'
 
         assert response.status_code == 200
         assert response["Content-Disposition"] == expected
@@ -46,7 +46,7 @@ class ExportCBVTests(TestCase):
         response = self.logged_client.get(
             reverse(self.export_xml_view, args=(self.folder.id,)), follow=True
         )
-        expected = f'attachment; filename="expoted_data.xml"'
+        expected = 'attachment; filename="expoted_data.xml"'
 
         assert response.status_code == 200
         assert response["Content-Disposition"] == expected
@@ -58,7 +58,7 @@ class ExportCBVTests(TestCase):
         response = self.logged_client.get(
             reverse(self.export_txt_view, args=(self.folder.id,)), follow=True
         )
-        expected = f'attachment; filename="expoted_data.txt"'
+        expected = 'attachment; filename="expoted_data.txt"'
 
         assert response.status_code == 200
         assert response["Content-Disposition"] == expected
@@ -70,7 +70,7 @@ class ExportCBVTests(TestCase):
         response = self.logged_client.get(
             reverse(self.export_csv_view, args=(self.folder.id,)), follow=True
         )
-        expected = f'attachment; filename="expoted_data.csv"'
+        expected = 'attachment; filename="expoted_data.csv"'
 
         assert response.status_code == 200
         assert response["Content-Disposition"] == expected

@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('scrapper', '0001_initial'),
+        ("scrapper", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='timezone',
-            name='value',
+            model_name="timezone",
+            name="value",
             field=models.FloatField(),
         ),
     ]

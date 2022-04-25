@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 from scrapper.models.selector_type import SelectorType
 from scrapper.models.utils.base import BaseModel
 from scrapper.models.website import Website

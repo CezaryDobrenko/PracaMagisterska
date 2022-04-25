@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('scrapper', '0002_auto_20220418_1242'),
+        ("scrapper", "0002_auto_20220418_1242"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='website',
-            name='is_valid_with_robots',
+            model_name="website",
+            name="is_valid_with_robots",
             field=models.BooleanField(default=True),
         ),
     ]
