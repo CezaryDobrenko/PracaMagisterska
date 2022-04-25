@@ -10,12 +10,17 @@ class Scrapper:
     content: str
     soup: list
 
-    def __init__(self, url):
+    def __init__(self, url: str, is_mocked: bool = False):
         self.scraper = cfscrape.create_scraper()
         self.url = url
-        content = self.__download_content(url)
-        self.content = content
-        self.soup = BeautifulSoup(content, 'html.parser')
+        if not is_mocked:
+            content = self.__download_content(url)
+            self.content = content
+            self.soup = BeautifulSoup(content, 'html.parser')
+        else:
+            content = open('mocked_website.html','r')
+            self.content = content
+            self.soup = BeautifulSoup(content, 'html.parser')
 
     def __download_content(self, url):
         return self.scraper.get(url).content

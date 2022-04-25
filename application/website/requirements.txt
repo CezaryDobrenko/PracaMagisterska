@@ -15,3 +15,4 @@ validators==0.18.2
 cfscrape==2.1.1
 html-to-json==2.0.0
 dicttoxml==1.7.4
+werkzeug==2.1.1

@@ -21,7 +21,7 @@ class Autocomplete(graphene.ObjectType):
         output = []
         for index, interval in enumerate(intervals):
             output.append(IntervalNode(
-                id=f"Interval:{index}",
+                id=f"{index}{interval}",
                 interval_value=interval
             ))
         return output

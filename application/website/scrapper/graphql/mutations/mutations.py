@@ -23,6 +23,9 @@ class DeactivateApiKey(graphene.Mutation):
     def mutate(self, info, **kwargs):
         api_token = kwargs["api_token"]
         key = ApiKey.objects.get(key=api_token)
+        current_user = kwargs["current_user"]
+        if current_user.id != key.user_id:
+            raise Exception("This api_key cannot be deactivated by given api_key")
         key.is_active = False
         key.save()
         return DeactivateApiKey(is_deactivated=True)
@@ -38,6 +41,9 @@ class DeleteFolder(graphene.Mutation):
     def mutate(self, info, folder_id: str, **kwargs):
         folder_pk = Folder.retrieve_id(folder_id)
         folder = Folder.objects.get(id=folder_pk)
+        current_user = kwargs["current_user"]
+        if current_user.id != folder.user_id:
+            raise Exception("This folder cannot be edited by given api_key")
         folder.delete()
         return DeleteFolder(is_deleted=True)
 
@@ -52,8 +58,11 @@ class DeleteWebsite(graphene.Mutation):
     def mutate(self, info, website_id: str, **kwargs):
         website_pk = Website.retrieve_id(website_id)
         website = Website.objects.get(id=website_pk)
+        current_user = kwargs["current_user"]
+        if current_user.id != website.folder.user_id:
+            raise Exception("This website cannot be edited by given api_key")
         website.delete()
-        return DeleteWebsite(is_deactivated=True)
+        return DeleteWebsite(is_deleted=True)
 
 
 class DeleteSelector(graphene.Mutation):
@@ -66,8 +75,11 @@ class DeleteSelector(graphene.Mutation):
     def mutate(self, info, selector_id: str, **kwargs):
         selector_pk = Selector.retrieve_id(selector_id)
         selector = Selector.objects.get(id=selector_pk)
+        current_user = kwargs["current_user"]
+        if current_user.id != selector.website.folder.user_id:
+            raise Exception("This selector cannot be edited by given api_key")
         selector.delete()
-        return DeleteSelector(is_deactivated=True)
+        return DeleteSelector(is_deleted=True)
 
 
 class UpdateFolder(graphene.Mutation):
@@ -83,6 +95,9 @@ class UpdateFolder(graphene.Mutation):
     def mutate(self, info, folder_id: str, **kwargs):
         folder_pk = Folder.retrieve_id(folder_id)
         folder = Folder.objects.get(id=folder_pk)
+        current_user = kwargs["current_user"]
+        if current_user.id != folder.user_id:
+            raise Exception("This folder cannot be edited by given api_key")
         update_data = {}
         if "is_ready" in kwargs.keys():
             update_data["is_ready"] = kwargs.get("is_ready")
@@ -107,6 +122,9 @@ class UpdateWebsite(graphene.Mutation):
     def mutate(self, info, website_id: str, **kwargs):
         website_pk = Website.retrieve_id(website_id)
         website = Website.objects.get(id=website_pk)
+        current_user = kwargs["current_user"]
+        if current_user.id != website.folder.user_id:
+            raise Exception("This website cannot be edited by given api_key")
         update_data = {}
         if "is_ready" in kwargs.keys():
             update_data["is_ready"] = kwargs.get("is_ready")
@@ -130,13 +148,16 @@ class UpdateSelector(graphene.Mutation):
     def mutate(self, info, selector_id: str, **kwargs):
         selector_pk = Selector.retrieve_id(selector_id)
         selector = Selector.objects.get(id=selector_pk)
+        current_user = kwargs["current_user"]
+        if current_user.id != selector.website.folder.user_id:
+            raise Exception("This selector cannot be edited by given api_key")
         update_data = {}
         if "value" in kwargs.keys():
             update_data["value"] = kwargs.get("value")
         if "description" in kwargs.keys():
             update_data["description"] = kwargs.get("description")
         if "selector_type" in kwargs.keys():
-            update_data["selector_type"] = SelectorType.retrieve_id(kwargs.get("selector_type"))
+            update_data["selector_type_id"] = SelectorType.retrieve_id(kwargs.get("selector_type"))
         selector.update(**update_data)
         return UpdateSelector(selector=selector)
 
@@ -150,6 +171,9 @@ class ClearSelectorData(graphene.Mutation):
     def mutate(self, info, selector_id: str, **kwargs):
         selector_pk = Selector.retrieve_id(selector_id)
         selector = Selector.objects.get(id=selector_pk)
+        current_user = kwargs["current_user"]
+        if current_user.id != selector.website.folder.user_id:
+            raise Exception("This selector cannot be edited by given api_key")
         collected_data = CollectedData.objects.filter(selector_id=selector_pk)
         for data_row in collected_data:
             data_row.delete()

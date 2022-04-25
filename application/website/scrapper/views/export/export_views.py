@@ -4,6 +4,7 @@ from scrapper.models.folder import Folder
 from django.views import View
 from django.http import HttpResponse, JsonResponse
 from scrapper.export import Export
+import json
 
 
 class ExportList(LoginRequiredMixin, ListView):
@@ -22,7 +23,8 @@ class ExportJSON(LoginRequiredMixin, ListView):
     def get(self, request, pk):
         export = Export(pk)
         data = export.export_as_json()
-        response = JsonResponse(data, safe=False)
+        parsed_json_data = json.loads(data)
+        response = JsonResponse(parsed_json_data)
         response["Content-Disposition"] = f'attachment; filename="expoted_data.json"'
         return response
 

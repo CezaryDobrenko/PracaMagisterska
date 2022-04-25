@@ -13,6 +13,29 @@ class GUIPreview:
         parsed_soup = GUIPreview.parse_soup(soup)
         return parsed_soup
 
+    def get_mocked_preview(self):
+        content = """
+            <html>
+                <head>
+                    <script>
+                        console.log(1);
+                    </script>
+                    <style>
+                        body{
+                            border: solid 1px black;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <a href="www.google.pl">Link to google!</a>
+                    Nice website :)
+                </body>
+            </html>
+        """
+        soup = BeautifulSoup(content, 'html.parser')
+        parsed_soup = GUIPreview.parse_soup(soup)
+        return parsed_soup
+
     def parse_soup(soup):
         unwanted_tags = ["script", "style", "link", "head", "svg"]
         unwanted_elements = [('a', 'href'), (None, 'style')]

@@ -29,10 +29,6 @@ class DashboardView(TemplateView):
         return context
 
 
-class ContactView(TemplateView):
-    template_name = "scrapper/contact.html"
-
-
 class ProcessView(TemplateView):
     template_name = "scrapper/how_it_works.html"
 

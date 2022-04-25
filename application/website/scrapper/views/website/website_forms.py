@@ -86,12 +86,12 @@ class WebsiteUpdateForm(BaseForm):
         if "is_ready" in self.data.keys():
             if self.data["is_ready"] == "on":
                 update_data["is_ready"] = True
-            else:
-                update_data["is_ready"] = False
+        else:
+            update_data["is_ready"] = False
         if "is_simplified" in self.data.keys():
             if self.data["is_simplified"] == "on":
                 update_data["is_simplified"] = True
-            else:
-                update_data["is_simplified"] = False
+        else:
+            update_data["is_simplified"] = False
         website.update(**update_data)
         return HttpResponseRedirect(reverse("websites-settings", kwargs={"pk": website.folder.id}))

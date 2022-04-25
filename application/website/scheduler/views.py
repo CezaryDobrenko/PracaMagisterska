@@ -2,7 +2,6 @@ from django.http import HttpResponse
 from django.utils import timezone
 from scrapper.models.folder import Folder
 from scrapper.models.website import Website
-from scrapper.models.user import Test
 from scrapper.models.utils.intervals import Interval
 from scrapper.models.selectors import Selector
 from scrapper.models.collected_data import CollectedData

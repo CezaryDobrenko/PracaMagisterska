@@ -25,7 +25,6 @@ from scrapper.views.basic_views import (
     DashboardView,
     MissionView,
     AnnouncementsView,
-    ContactView,
     ProcessView,
     PrivateDashboardView,
     SuccessView,
@@ -99,7 +98,6 @@ urlpatterns = [
     path("dashboard/", PrivateDashboardView.as_view(), name="private_dashboard"),
     path("mission/", MissionView.as_view(), name="mission"),
     path("announcements/", AnnouncementsView.as_view(), name="announcements"),
-    path("contact/", ContactView.as_view(), name="contact"),
     path("process/", ProcessView.as_view(), name="process"),
 
     #Auth views
@@ -112,6 +110,7 @@ urlpatterns = [
     path("reset_password/", ResetPassowrd.as_view(), name="reset_password"),
     path("reset_password_confirm/<str:token>/", ResetPassowrdConfirm.as_view(), name="reset_password_confirm"),
     path("success/", SuccessView.as_view(), name="success"),
+    path("change_timezone/<int:pk>", ChangeTimezone.as_view(), name="change_timezone"),
 
     #News views
     path("news/", NewsList.as_view(), name="news"),
@@ -160,9 +159,6 @@ urlpatterns = [
     path("api_keys/delete/<int:pk>", ApiKeyDelete.as_view(), name="api-key-delete"),
     path("api_keys/update/<int:pk>", ApiKeyUpdate.as_view(), name="api-key-update"),
     path("api_keys/clear/", ApiKeyClear.as_view(), name="api-key-clear"),
-
-    #Timezone views
-    path("change_timezone/<int:pk>", ChangeTimezone.as_view(), name="change_timezone"),
 
     #General views
     path("admin/", admin.site.urls),
