@@ -10,5 +10,8 @@ python manage.py migrate
 echo "Load mocked data to database"
 python manage.py loaddata mock_data.yaml
 
+echo "Load statics"
+python manage.py collectstatic --noinput
+
 echo "Starting server"
 python manage.py runserver 0.0.0.0:8000

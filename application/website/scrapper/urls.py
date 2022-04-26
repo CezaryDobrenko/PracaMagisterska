@@ -14,8 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.contrib import admin
+from django.conf import settings
 from django.urls import include, path
+from django.conf.urls import url
+
+from django.conf import settings
+
+from django.views.static import serve
+
+from django.contrib import admin
 from django.views.decorators.csrf import csrf_exempt
 from graphene_file_upload.django import FileUploadGraphQLView
 from scheduler.views import scheduler
@@ -180,8 +187,13 @@ urlpatterns = [
     path("api_keys/delete/<int:pk>", ApiKeyDelete.as_view(), name="api-key-delete"),
     path("api_keys/update/<int:pk>", ApiKeyUpdate.as_view(), name="api-key-update"),
     path("api_keys/clear/", ApiKeyClear.as_view(), name="api-key-clear"),
+
     # General views
     path("admin/", admin.site.urls),
     path("graphql/", csrf_exempt(FileUploadGraphQLView.as_view(graphiql=True))),
     path("scheduler/<interval>", scheduler, name="scheduler"),
+
+    url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
+    url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 ]
+

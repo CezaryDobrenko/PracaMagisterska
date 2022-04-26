@@ -24,9 +24,8 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET", "DS@RWSFR!%@#^SFZXes#afasfcz$#412e"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "localhost", "172.16.11.11", "192.168.8.102"]
+ALLOWED_HOSTS = ["*"]
 
-MEDIA_VIEW_URL = "/tmp/files/"
 
 # Application definition
 
@@ -119,9 +118,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATIC_URL = "/static/"
-MEDIA_ROOT = "/tmp/files/"
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
+if DEBUG:
+  STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+else:
+  STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 GRAPHENE = {
     "SCHEMA": "scrapper.graphql.schema",

@@ -17,7 +17,8 @@ services:
     build: ./website
     hostname: website
     volumes:
-      - /home/files:/tmp/files
+    volumes:
+      - static_volume:/code/static
       - ./website:/code
     depends_on:
       -  db
@@ -35,6 +36,8 @@ services:
 
   nginx_proxy:
     build: ./ngnix
+    volumes:
+      - static_volume:/code/static
     ports:
       - "80:80"
       - "443:443"
@@ -62,3 +65,6 @@ networks:
       driver: default
       config:
         - subnet: "172.16.11.0/24"
+
+volumes:
+  static_volume:
