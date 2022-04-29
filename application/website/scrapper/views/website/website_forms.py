@@ -14,7 +14,10 @@ def robots_validator(url):
     robots_url = f"{parsed_url.scheme}://{parsed_url.netloc}/robots.txt"
     rp = urllib.robotparser.RobotFileParser()
     rp.set_url(robots_url)
-    rp.read()
+    try:
+        rp.read()
+    except:
+        return True
     return rp.can_fetch("*", url)
 
 

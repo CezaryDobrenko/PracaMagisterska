@@ -1,4 +1,5 @@
 import json
+import codecs
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, JsonResponse
@@ -27,7 +28,9 @@ class ExportJSON(LoginRequiredMixin, ListView):
         data = export.export_as_json()
         parsed_json_data = json.loads(data)
         response = JsonResponse(parsed_json_data)
+        response["Content-Type"] = 'text/html; charset=utf-8'
         response["Content-Disposition"] = 'attachment; filename="expoted_data.json"'
+        response.write(codecs.BOM_UTF8)
         return response
 
 
@@ -36,7 +39,9 @@ class ExportTXT(LoginRequiredMixin, ListView):
         export = Export(pk)
         data = export.export_as_txt()
         response = HttpResponse(data)
+        response["Content-Type"] = 'text/html; charset=utf-8'
         response["Content-Disposition"] = 'attachment; filename="expoted_data.txt"'
+        response.write(codecs.BOM_UTF8)
         return response
 
 
@@ -45,7 +50,9 @@ class ExportXML(LoginRequiredMixin, View):
         export = Export(pk)
         data = export.export_as_xml()
         response = HttpResponse(data)
+        response["Content-Type"] = 'text/html; charset=utf-8'
         response["Content-Disposition"] = 'attachment; filename="expoted_data.xml"'
+        response.write(codecs.BOM_UTF8)
         return response
 
 
@@ -54,5 +61,7 @@ class ExportCSV(LoginRequiredMixin, View):
         export = Export(pk)
         data = export.export_as_csv()
         response = HttpResponse(data)
+        response["Content-Type"] = 'text/csv; charset=utf-8'
         response["Content-Disposition"] = 'attachment; filename="expoted_data.csv"'
+        response.write(codecs.BOM_UTF8)
         return response
