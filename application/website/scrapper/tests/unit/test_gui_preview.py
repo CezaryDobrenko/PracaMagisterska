@@ -1,4 +1,5 @@
 from django.test import TestCase
+
 from scrapper.gui_preview import GUIPreview
 
 

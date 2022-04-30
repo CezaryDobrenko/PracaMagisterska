@@ -1,4 +1,5 @@
 import graphene
+
 from scrapper.graphql.mutations.mutations import CustomMutation
 
 

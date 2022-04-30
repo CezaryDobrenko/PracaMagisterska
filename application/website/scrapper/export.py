@@ -2,6 +2,7 @@ import json
 from json import loads
 
 from dicttoxml import dicttoxml
+
 from scrapper.models.collected_data import CollectedData
 from scrapper.models.selectors import Selector
 from scrapper.models.website import Website

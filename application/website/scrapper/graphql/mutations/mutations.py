@@ -1,6 +1,7 @@
 import logging
 
 import graphene
+
 from scrapper.graphql.auth import authenticate_required
 from scrapper.graphql.schema.folder import FolderNode
 from scrapper.graphql.schema.selector import SelectorNode

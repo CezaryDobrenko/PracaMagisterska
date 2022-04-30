@@ -1,6 +1,7 @@
 import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
+
 from scrapper.graphql.filters.website_filter import WebsiteFilter
 from scrapper.graphql.schema.website import WebsiteNode
 from scrapper.models.folder import Folder

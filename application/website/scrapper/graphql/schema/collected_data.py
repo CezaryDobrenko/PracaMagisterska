@@ -1,5 +1,6 @@
 import graphene
 from graphene_django import DjangoObjectType
+
 from scrapper.models.collected_data import CollectedData
 
 

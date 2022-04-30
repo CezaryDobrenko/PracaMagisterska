@@ -3,6 +3,7 @@ from datetime import timedelta
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import DeleteView, FormView, ListView, UpdateView
+
 from scrapper.models.folder import Folder
 from scrapper.models.user import User
 from scrapper.models.utils.intervals import Interval

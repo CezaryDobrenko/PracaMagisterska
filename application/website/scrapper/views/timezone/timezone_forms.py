@@ -1,5 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+
 from scrapper.models.timezone import Timezone
 from scrapper.models.user import User
 from scrapper.views.basic_forms import BaseForm

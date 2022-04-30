@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from scrapper.models.api_key import ApiKey
 from scrapper.models.collected_data import CollectedData
 from scrapper.models.folder import Folder

@@ -1,4 +1,5 @@
 from django.db import models
+
 from scrapper.models.selector_type import SelectorType
 from scrapper.models.utils.base import BaseModel
 from scrapper.models.website import Website

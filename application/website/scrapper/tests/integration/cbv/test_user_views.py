@@ -1,5 +1,6 @@
 from django.test import Client, TestCase
 from django.urls import reverse
+
 from scrapper.models.user import User
 from scrapper.tests.factories import TimezoneFactory, UserFactory
 

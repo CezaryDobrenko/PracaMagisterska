@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.utils import timezone
+
 from scrapper.models.collected_data import CollectedData
 from scrapper.models.folder import Folder
 from scrapper.models.selectors import Selector

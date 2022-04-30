@@ -3,9 +3,10 @@
 import django.contrib.auth.models
 import django.db.models.deletion
 import django.utils.timezone
-import scrapper.models.utils.graphql_mixin
 from django.conf import settings
 from django.db import migrations, models
+
+import scrapper.models.utils.graphql_mixin
 
 
 class Migration(migrations.Migration):

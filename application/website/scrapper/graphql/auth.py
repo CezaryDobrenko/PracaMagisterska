@@ -1,6 +1,8 @@
+import time
 from functools import wraps
 
 from scrapper.models.api_key import ApiKey
+from scrapper.models.user import User
 
 
 def get_authorization(context):
@@ -13,11 +15,14 @@ def get_authorization(context):
             raise Exception("Invalid request")
 
 
-def get_user_from_api_token(api_token):
+def get_user_from_api_token(api_token: str) -> User:
     key = ApiKey.objects.filter(key=api_token).first()
     if key:
         if key.is_active:
-            return key.user
+            if time.time() < key.expired_at.timestamp():
+                return key.user
+            else:
+                raise Exception("Api key is expired!")
         else:
             raise Exception("Api key is inactive!")
     else:

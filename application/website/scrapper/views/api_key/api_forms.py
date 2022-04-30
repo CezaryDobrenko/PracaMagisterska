@@ -5,6 +5,7 @@ from django import forms
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
+
 from scrapper.models.api_key import ApiKey
 from scrapper.views.basic_forms import BaseForm
 

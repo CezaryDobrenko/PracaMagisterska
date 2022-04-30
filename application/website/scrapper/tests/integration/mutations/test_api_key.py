@@ -1,5 +1,6 @@
 from django.test import TestCase
 from graphene.test import Client
+
 from scrapper.graphql import schema
 from scrapper.tests.factories import ApiKeyFactory, RequestFactory, UserFactory
 

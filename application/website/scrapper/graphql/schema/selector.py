@@ -1,6 +1,7 @@
 import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
+
 from scrapper.graphql.filters.collected_data_filter import CollectedDataFilter
 from scrapper.graphql.schema.collected_data import CollectedDataNode
 from scrapper.models.collected_data import CollectedData

@@ -1,4 +1,5 @@
 from django.db import models
+
 from scrapper.models.folder import Folder
 from scrapper.models.utils.base import BaseModel
 from scrapper.settings import APP_LABEL

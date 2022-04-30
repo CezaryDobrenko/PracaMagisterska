@@ -1,6 +1,7 @@
 import graphene
 from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
+
 from scrapper.graphql.auth import authenticate_required
 from scrapper.graphql.filters.folder_filter import FolderFilter
 from scrapper.graphql.schema.folder import FolderNode

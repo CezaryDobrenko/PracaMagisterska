@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.views.generic import DeleteView, FormView, ListView, UpdateView
+
 from scrapper.gui_preview import GUIPreview
 from scrapper.models.collected_data import CollectedData
 from scrapper.models.selectors import Selector

@@ -1,5 +1,6 @@
 from django.test import Client, TestCase
 from django.urls import reverse
+
 from scrapper.models.collected_data import CollectedData
 from scrapper.tests.factories import (
     CollectedDataFactory,

@@ -3,6 +3,7 @@ from datetime import timedelta
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.views.generic import DeleteView, FormView, ListView, UpdateView
+
 from scrapper.models.collected_data import CollectedData
 from scrapper.models.selectors import Selector
 from scrapper.models.user import User

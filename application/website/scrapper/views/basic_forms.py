@@ -1,4 +1,5 @@
 from django import forms
+
 from scrapper.translations.language_pl import Translator
 
 

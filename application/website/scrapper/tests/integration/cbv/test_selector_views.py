@@ -1,5 +1,6 @@
 from django.test import Client, TestCase
 from django.urls import reverse
+
 from scrapper.models.selectors import Selector
 from scrapper.tests.factories import (
     FolderFactory,

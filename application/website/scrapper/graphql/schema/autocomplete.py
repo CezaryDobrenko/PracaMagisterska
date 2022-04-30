@@ -1,6 +1,7 @@
 import graphene
 from graphene.relay.node import to_global_id
 from graphene_django.filter import DjangoFilterConnectionField
+
 from scrapper.graphql.filters.selector_type_filter import SelectorTypeFilter
 from scrapper.graphql.schema.interval import IntervalConnection, IntervalNode
 from scrapper.graphql.schema.selector_type import SelectorTypeNode

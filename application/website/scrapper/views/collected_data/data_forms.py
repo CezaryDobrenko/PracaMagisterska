@@ -1,4 +1,5 @@
 from django.utils.translation import ugettext_lazy as _
+
 from scrapper.models.collected_data import CollectedData
 from scrapper.views.basic_forms import BaseForm
 

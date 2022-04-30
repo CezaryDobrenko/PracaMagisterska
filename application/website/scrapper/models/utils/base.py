@@ -2,6 +2,7 @@ import re
 
 from django.db import models
 from django.utils import timezone
+
 from scrapper.models.utils.graphql_mixin import GrapheneMixin
 
 

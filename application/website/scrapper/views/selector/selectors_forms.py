@@ -2,6 +2,7 @@ import json
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+
 from scrapper.models.selector_type import SelectorType
 from scrapper.models.selectors import Selector
 from scrapper.models.website import Website

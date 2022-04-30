@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.views.generic import DeleteView, FormView, ListView, UpdateView
+
 from scrapper.models.folder import Folder
 from scrapper.models.selectors import Selector
 from scrapper.models.website import Website

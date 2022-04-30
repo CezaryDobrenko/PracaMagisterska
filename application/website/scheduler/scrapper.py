@@ -27,7 +27,7 @@ class Scrapper:
     def __download_content(self, url) -> str:
         return self.scraper.get(url).content
 
-    def __remove_html_tags(self, results: list, replace: str ="") -> list:
+    def __remove_html_tags(self, results: list, replace: str = "") -> list:
         parsed_results = []
         for result in results:
             parsed_result = re.sub(re.compile("<.*?>"), replace, str(result))
@@ -52,7 +52,9 @@ class Scrapper:
             return ["th", "td"]
         return []
 
-    def scrape_website(self, selector_type: str, selector_value: str, is_simplified: bool) -> list:
+    def scrape_website(
+        self, selector_type: str, selector_value: str, is_simplified: bool
+    ) -> list:
         if selector_type == "tag":
             if selector_value in ["list", "headline", "table"]:
                 selectors = self.__get_custom_selectors(selector_value)

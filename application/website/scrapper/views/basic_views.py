@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
+
 from scrapper.models.collected_data import CollectedData
 from scrapper.models.folder import Folder
 from scrapper.models.selectors import Selector
