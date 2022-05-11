@@ -11,6 +11,7 @@ from scrapper.models.selectors import Selector
 from scrapper.models.timezone import Timezone
 from scrapper.models.user import User
 from scrapper.models.website import Website
+import time
 
 
 class RequestFactory:
@@ -95,5 +96,5 @@ class ApiKeyFactory(factory.django.DjangoModelFactory):
     name = "Klucz API"
     key = "51jdf2i84jsad23912esa"
     is_active = True
-    expired_at = None
+    expired_at = "2024-12-26 00:00:00+00"
     user = factory.SubFactory(UserFactory)
