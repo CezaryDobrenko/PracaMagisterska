@@ -1,7 +1,7 @@
 function wcag_handler(){
     if(!localStorage.getItem("wcag")){
         localStorage.setItem("wcag", "default"); 
-        localStorage.setItem("wcag_size", 0);  
+        localStorage.setItem("wcag_size", 1);  
     } else {
         if(localStorage.getItem("wcag") == "yellow"){
             wcag_yellow();
@@ -21,7 +21,7 @@ function change_size(size){
 }
 
 function reset_size(){
-    localStorage.setItem("wcag_size", 0); 
+    localStorage.setItem("wcag_size", 1); 
     window.location.reload(true);
 }
 

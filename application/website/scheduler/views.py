@@ -31,6 +31,7 @@ def scheduler(request, interval: str) -> HttpResponse:
             is_valid, new_date = calculate_new_scrape_date(
                 folder.last_scraping, folder.scraping_interval
             )
+            new_date = new_date.replace(second=0, microsecond=0)
             if is_valid:
                 folder.update_last_scraping(new_date)
                 if websites := Website.objects.filter(
