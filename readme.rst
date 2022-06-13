@@ -22,7 +22,11 @@ Usefull info:
   - login: supervisor@supervisor.pl
   - password: TsQ@GmQhuXp72cp8
 
-3. Code coverage
+3. User credentials:
+  - login: user@user.pl
+  - password: ZsA!smYtuXp77dc1
+
+4. Code coverage
   - Currently 90%
 
 Usefull comands:
