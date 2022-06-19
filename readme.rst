@@ -47,5 +47,5 @@ Usefull comands:
 4. Code maintenance:
   - black: black .
   - isort: isort .
-  - flake: flake8.
+  - flake: flake8 .
   
